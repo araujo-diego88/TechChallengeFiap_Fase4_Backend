@@ -5,6 +5,7 @@ import uploadConfig from "./config/upload";
 import SessionController from "./controllers/SessionController";
 import PlaceController from "./controllers/PlaceController";
 import DashboardController from './controllers/DashboardController';
+import ReserveController from "./controllers/ReserveController";
 
 const routes = new Router();
 const upload = multer(uploadConfig);
@@ -17,5 +18,7 @@ routes.put('/places/:place_id', upload.single('thumbnail'), PlaceController.upda
 routes.delete('/places', PlaceController.destroy);
 
 routes.get('/dashboard', DashboardController.show);
+
+routes.post('/places/:place_id/reserve', ReserveController.store);
 
 export default routes;
