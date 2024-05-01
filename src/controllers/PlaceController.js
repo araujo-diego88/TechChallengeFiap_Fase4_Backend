@@ -1,5 +1,6 @@
 import Place from '../models/Place';
 import User from '../models/User';
+import * as yup from 'yup';
 
 class PlaceController{
 
@@ -12,9 +13,22 @@ class PlaceController{
   }
 
   async store(req, res){
+    const schema = yup.object().shape({
+      description: yup.string().required(),
+      price: yup.number().required(),
+      location: yup.string().required(),
+      status: yup.boolean().required(),
+    });
+
+
     const { filename } = req.file;
     const { description, price, location, status } = req.body;
     const { user_id } = req.headers;
+
+    if(!(await schema.isValid(req.body))){
+      return res.status(400).json({ error: 'Falha na validação!' });
+    }
+
 
     const place = await Place.create({
       user: user_id,
@@ -30,10 +44,22 @@ class PlaceController{
   }
 
   async update(req, res){
+
+    const schema = yup.object().shape({
+      description: yup.string().required(),
+      price: yup.number().required(),
+      location: yup.string().required(),
+      status: yup.boolean().required(),
+    });
+
     const { filename } = req.file;
     const { place_id } = req.params;
     const { description, price, location, status} = req.body;
     const { user_id } = req.headers;
+
+    if(!(await schema.isValid(req.body))){
+      return res.status(400).json({ error: 'Falha na validação!' });
+    }
 
     const user = await User.findById(user_id);
     const places = await Place.findById(place_id);
@@ -43,7 +69,7 @@ class PlaceController{
     }
 
 
-    places = await Place.updateOne({_id: place_id}, {
+      await Place.updateOne({_id: place_id}, {
       user: user_id,
       thumbnail: filename,
       description,

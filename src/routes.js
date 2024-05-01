@@ -20,5 +20,7 @@ routes.delete('/places', PlaceController.destroy);
 routes.get('/dashboard', DashboardController.show);
 
 routes.post('/places/:place_id/reserve', ReserveController.store);
+routes.get('/reserves', ReserveController.index);
+routes.delete('/reserves/cancel', ReserveController.destroy);
 
 export default routes;
