@@ -1,7 +1,7 @@
 import {Schema, model} from "mongoose";
 
 const ReserveSchema = new Schema({
-  date: String,
+  date: Date,
   user:{
     type: Schema.Types.ObjectId,
     ref: 'User'
