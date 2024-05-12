@@ -1,3 +1,6 @@
 import app from './app';
 
-app.listen(3333);
+const porta = 3333
+
+app.listen(porta);
+console.log("Servidor rodando na porta " + porta)

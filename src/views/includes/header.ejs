@@ -1,0 +1,102 @@
+<%- include config.ejs %>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel='stylesheet' href='./css/style.css' />
+    <link rel='stylesheet' href='./css/fontawesome/css/all.min.css' />
+
+    <script type='importmap'>
+      {
+        "imports": {
+          "@fullcalendar/core": "https://cdn.skypack.dev/@fullcalendar/core@6.1.11",
+          "@fullcalendar/daygrid": "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.11"
+        }
+      }
+    </script>
+    <script type='module'>
+      import { Calendar } from '@fullcalendar/core'
+      import dayGridPlugin from '@fullcalendar/daygrid'
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new Calendar(calendarEl, {
+          plugins: [dayGridPlugin],
+          themeSystem: 'bootstrap5',
+          // allDay: false,
+          editable: true,
+          selectable: true,
+          unselectAuto: false,
+          displayEventTime: false,
+          // events: myEvents,
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+          }
+        })
+        calendar.render()
+      })
+    </script>
+
+  </head>
+  <body class="<%= bodyClass %>" >
+
+    <header id="Header">
+      <nav class="navbar navbar-expand-lg navbar-main">
+        <div class="container">
+          <div class="col-6 col-lg-2">
+            <a class="navbar-brand" href=""><img class="logo-header" width="180" height="50" src="<%= Logotipo_Header %>" alt="<%= NomeEmpresa %>"></a>
+          </div>
+          <div class="col-6 d-lg-none text-end">
+            <button class="navbar-toggler" title="Expandir" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMain" aria-controls="navbarMain">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+    
+          <div class="col-12 col-lg-8">
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarMain">
+              <div class="offcanvas-header justify-content-end">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-lg-center align-items-lg-center flex-grow-1 pe-lg-3 gap-lg-2 w-100">
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="">Home</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="reservar">Nossos Espaços</a></li>
+                  <!-- <li class="nav-item"><a class="tm-redirecionamento nav-link" href="reservar">Nossos Espaços</a></li> -->
+                  
+                  <!-- <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="ambientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ambientes</a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="ambiente/banho/">Banho</a></li>
+                      <li><a class="dropdown-item" href="ambiente/cozinha/">Cozinha</a></li>
+                      <li><a class="dropdown-item" href="ambiente/infantil/">Infantil</a></li>
+                      <li><a class="dropdown-item" href="ambiente/living/">Living</a></li>
+                      <li><a class="dropdown-item" href="ambiente/office/">Office</a></li>
+                      <li><a class="dropdown-item" href="ambiente/quartos/">Quartos</a></li>
+                      <li><a class="dropdown-item" href="ambiente/outros/">Outros</a></li>
+                    </ul>
+                  </li> -->
+    
+                  <!-- <li class="nav-item"><a class="tm-redirecionamento nav-link" href="contato">Contato</a></li> -->
+    
+                  <!-- <li class="nav-item ms-lg-3 mt-lg-0 mt-4"><a class="btn-header btn-blue" href="orcamento">Solicitar Orçamento</a></li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+    
+          <div class="d-none d-lg-block col-lg-2">
+            <!-- <ul class="m-0 list-unstyled list-sociais-header">
+              <li><a class="tm-facebook" href="<%= linkface %>" target="_blank" title="Facebook"><i class="fab fa-facebook-square"></i></a></li>
+              <li><a class="tm-instagram" href="<%= Instagram %>" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
+              <li><a class="tm-youtube" href="<%= youtube %>" target="_blank" title="Youtube"><i class="fab fa-youtube"></i></a></li>
+            </ul> -->
+          </div>
+    
+        </div>
+      </nav>
+      
+    </header>

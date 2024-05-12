@@ -1,0 +1,47 @@
+<%- include includes/header %>
+
+<div class="container py-5">
+    <div class="row g-5">
+        <div class="col-12 col-md-5">
+
+            <div id='calendar'></div>
+        </div>
+        <div class="col-12 col-md-7">
+
+            <div class="d-flex flex-column gap-3 lista-reservas">
+                <!-- Comando de loop inicio (a colocar) -->
+                <% for(var i=1; i<=6; i++) { %>
+                <div class="row gx-5 reservar-local mx-md-1">
+                    <div class="col-12 col-md-4 d-flex align-items-center"><img width="180" height="50" src="<%= Logotipo %>" class="imagem-local" title="Exemplo <%=i%>" alt="Exemplo <%=i%>"></div>
+                    <div class="col-12 col-md-8">
+                        <p class="h1">Exemplo <%=i%></p>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque quibusdam accusamus unde repellat. Vel, ipsum commodi. Voluptatibus eum tenetur tempora beatae? Nostrum provident molestiae, consequatur debitis eos accusamus et perspiciatis.</p>
+                        <p class="mb-0">Horários disponíveis</p>
+                        <form method="post" action="#" id="id_espaco">
+
+                            <!-- Inicia loop horarios (A Fazer) -->
+                            <% for(var h=0; h < 4; h++) { %>
+                                <% if(!h) { %>
+                                    <input type="radio" class="btn-check" name="options" id="option_<%=i%>_<%=h%>" autocomplete="off" checked>
+                                <% } else { %>
+                                    <input type="radio" class="btn-check" name="options" id="option_<%=i%>_<%=h%>" autocomplete="off" >
+                                <% }%>
+                                <label class="btn btn-outline-primary" for="option_<%=i%>_<%=h%>"><%=(12 + (h * 3))%>:00</label>
+                            <% }%>
+                            
+                            <!-- Encerra loop horarios (A Fazer) -->
+
+                            
+                        </form>
+                    </div>
+                </div>
+                <% } %>
+                <!-- Comando de loop fim (a colocar) -->
+            </div>
+            <p class="text-start mt-4 mx-1"><a href="#" class="btn btn-primary">Confirmar Reservas</a></p>
+
+        </div>
+    </div>
+</div>
+
+<%- include includes/footer %>

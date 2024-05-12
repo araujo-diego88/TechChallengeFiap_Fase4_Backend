@@ -1,0 +1,19 @@
+<%- include includes/header %>
+<main class="container py-5">
+    <div class="d-flex flex-wrap gap-4">
+
+        <% for(var i = 1; i <= 12; i++) { %>
+
+        <div class="card card-home" style="width: 18rem;">
+            <img src="./files/escritoriio-1714518879441.jpg" class="card-img-top img-fluid" alt="...">
+            <div class="card-body text-center">
+                <h5 class="card-title">Exemplo <%=i%></h5>
+                <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia, voluptas quo nulla perspiciatis, distinctio</p>
+                <a href="#" class="btn btn-primary">Ver Reserva</a>
+            </div>
+        </div>
+
+        <% } %>
+    </div>
+</main>
+    <%- include includes/footer %>
