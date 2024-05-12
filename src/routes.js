@@ -14,6 +14,7 @@ routes.post('/sessions', SessionController.store);
 
 routes.post('/places', upload.single('thumbnail') ,PlaceController.store);
 routes.get('/places', PlaceController.index);
+routes.get('/placefind', PlaceController.id_find);
 routes.put('/places/:place_id', upload.single('thumbnail'), PlaceController.update);
 routes.delete('/places', PlaceController.destroy);
 

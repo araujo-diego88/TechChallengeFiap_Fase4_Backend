@@ -1,20 +1,34 @@
 var express = require('express');
 var router = express.Router();
 
-// var logado = true;
+router.get(`/`, async function (req, res) {
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Shared Spaces | Reserve seu espaço', bodyClass:"homepage" });
+    const response = await fetch('http://localhost:3333/places?status=true');
+    const json = await response.json();
+    res.render('index', { title: 'Shared Spaces | Reserve seu espaço', bodyClass:"homepage", lugares:json });
 });
+
+
 router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Shared Spaces | Login', bodyClass:"login-page" });
 });
-router.get('/sala', function(req, res, next) {
-    res.render('sala', { title: 'Shared Spaces | (Nome do lugar)', bodyClass:"sala-page" });
+
+router.get('/sala/:id', async function(req, res, next) {
+    
+    var lugar_id = req.params.id;
+    const response = await fetch('http://localhost:3333/placefind?place_id='+lugar_id);
+    const json = await response.json();
+    
+    res.render('sala', { title: 'Shared Spaces | ' + json.nome, bodyClass:"sala-page", lugares:json });
 });
-router.get('/reservar', function(req, res, next) {
-    res.render('reservar', { title: 'Shared Spaces | Catalogo de reservas', bodyClass:"reservar-page" });
+
+router.get('/reservar', async function(req, res, next) {
+    const response = await fetch('http://localhost:3333/places?status=true');
+    const json = await response.json();
+    res.render('reservar', { title: 'Shared Spaces | Catalogo de reservas', bodyClass:"reservar-page", lugares:json });
+});
+router.get('/teste', function(req, res, next) {
+    res.render('teste', { title: 'Shared Spaces | Catalogo de reservas', bodyClass:"teste-page" });
 });
 
 
@@ -22,8 +36,10 @@ router.get('/reservar', function(req, res, next) {
 router.get('/admin/login', function(req, res, next) {
     res.render('admin/login', { title: 'Login Admin', bodyClass:"login-page" });
 });
-router.get('/admin/administrar-reservas', function(req, res, next) {
-    res.render('admin/administrar-reservas', { title: 'Administrar Reservas', bodyClass:"reservar-page" });
+router.get('/admin/administrar-reservas', async function(req, res, next) {
+    const response = await fetch('http://localhost:3333/places?status=true');
+    const json = await response.json();
+    res.render('admin/administrar-reservas', { title: 'Administrar Reservas', bodyClass:"reservar-page", lugares:json });
 });
 
 module.exports = router;

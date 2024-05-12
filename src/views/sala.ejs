@@ -3,15 +3,15 @@
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <!-- <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
         </div>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="./files/society-1714307935790.jpg" class="d-block w-100 object-fit-cover" style="height: 600px;" alt="...">
+            <img src="<%=lugares.thumbnail_url%>" class="d-block w-100 object-fit-cover" style="height: 600px;" alt="...">
           </div>
-          <div class="carousel-item">
-            <img src="./files/escritoriio-1714518879441.jpg" class="d-block w-100 object-fit-cover" style="height: 600px;" alt="...">
-          </div>
+          <!-- <div class="carousel-item">
+            <img src="<%=Url%>files/escritoriio-1714518879441.jpg" class="d-block w-100 object-fit-cover" style="height: 600px;" alt="...">
+          </div> -->
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -25,11 +25,9 @@
 
       <div class="row py-5">
         <div class="col-12 col-md-8">
-            <h1>Produto exemplo</h1>
+            <h1><%=lugares.nome%></h1>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat saepe enim, hic culpa rem facilis omnis a laboriosam in quam doloribus sapiente pariatur, ducimus, recusandae eveniet odio? Minus, impedit nihil.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat saepe enim, hic culpa rem facilis omnis a laboriosam in quam doloribus sapiente pariatur, ducimus, recusandae eveniet odio? Minus, impedit nihil.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat saepe enim, hic culpa rem facilis omnis a laboriosam in quam doloribus sapiente pariatur, ducimus, recusandae eveniet odio? Minus, impedit nihil.
+              <%=lugares.descricao_longa%>
             </p>
 
         </div>

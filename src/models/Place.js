@@ -1,11 +1,14 @@
 import {Schema, model} from "mongoose";
 
 const PlaceSchema = new Schema({
+  nome: String,
   thumbnail: String,
   description: String,
+  descricao_longa: String,
   price:Number,
   location: String,
   status: Boolean,
+  datas_disponiveis: Array,
   user:{
     type: Schema.Types.ObjectId,
     ref: 'User'

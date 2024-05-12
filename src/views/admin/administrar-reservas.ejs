@@ -8,15 +8,14 @@
         </div>
         <div class="col-12 col-md-7 d-flex flex-column gap-3 lista-reservas">
 
-              <!-- Comando de loop inicio (a colocar) -->
-            <% for(var i=1; i<=6; i++) { %>
+            <% lugares.forEach(lugar => { %>
                 <div class="row gx-5 reservar-local mx-md-1">
-                    <div class="col-12 col-md-4 d-flex align-items-center"><img width="180" height="50" src="<%= Logotipo %>" class="imagem-local" title="Exemplo <%=i%>" alt="Exemplo <%=i%>"></div>
+                    <div class="col-12 col-md-4 d-flex align-items-center"><img width="180" height="180" src="<%=lugar.thumbnail_url%>" class="imagem-local" title="<%=lugar.nome%>" alt="<%=lugar.nome%>" style="object-fit: cover;object-position: center;"></div>
                     <div class="col-12 col-md-8">
-                        <p class="h1">Exemplo <%=i%></p>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque quibusdam accusamus unde repellat. Vel, ipsum commodi. Voluptatibus eum tenetur tempora beatae? Nostrum provident molestiae, consequatur debitis eos accusamus et perspiciatis.</p>
+                        <p class="h1"><%=lugar.nome%></p>
+                        <p><%=lugar.description%></p>
                         <p class="mb-0">Horários disponíveis</p>
-                        <form method="post" action="#" id="id_espaco">
+                        <form method="post" action="#" id="id_espaco_<%=lugar.id%>">
 
                             <!-- Inicia loop horarios (A Fazer) -->
                             <a href="#" class="btn btn-outline-primary">Ver detalhes</a>
@@ -27,10 +26,7 @@
                         </form>
                     </div>
                 </div>
-            <% } %>
-                <!-- Comando de loop fim (a colocar) -->
-            <!-- <p class="text-start mt-4 mx-1"><a href="#" class="btn btn-primary">Confirmar Reservas</a></p> -->
-
+            <% }); %>
         </div>
     </div>
 </div>

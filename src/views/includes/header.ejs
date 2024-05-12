@@ -4,9 +4,10 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
-    <link rel='stylesheet' href='./css/style.css' />
-    <link rel='stylesheet' href='./css/fontawesome/css/all.min.css' />
+    <link rel="stylesheet" href="<%=Url%>css/bootstrap.min.css">
+    <link rel='stylesheet' href='<%=Url%>css/style.css' />
+    <link rel='stylesheet' href='<%=Url%>css/fontawesome/css/all.min.css' />
+    <link rel="shortcut icon" type="image/x-icon" href="<%= Favicon %>">
 
     <script type='importmap'>
       {
@@ -48,7 +49,7 @@
       <nav class="navbar navbar-expand-lg navbar-main">
         <div class="container">
           <div class="col-6 col-lg-2">
-            <a class="navbar-brand" href=""><img class="logo-header" width="180" height="50" src="<%= Logotipo_Header %>" alt="<%= NomeEmpresa %>"></a>
+            <a class="navbar-brand" href="<%=Url%>"><img class="logo-header" width="180" height="50" src="<%= Logotipo_Header %>" alt="<%= NomeEmpresa %>"></a>
           </div>
           <div class="col-6 d-lg-none text-end">
             <button class="navbar-toggler" title="Expandir" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMain" aria-controls="navbarMain">

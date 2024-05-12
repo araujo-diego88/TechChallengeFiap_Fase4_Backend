@@ -1,0 +1,14 @@
+<%- include includes/header %>
+
+<div id="places-container">
+
+<% place.forEach(places => { %>
+     Nome: <%=places.nome%> <br>
+     Descrição: <%=places.description%> <br>
+     Localização: <%=places.location%> <br>
+     Imagem: <%=places.thumbnail_url%> <br><br>
+<% }); %>
+</div>
+
+
+<%- include includes/footer %>
