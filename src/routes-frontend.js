@@ -12,6 +12,9 @@ router.get(`/`, async function (req, res) {
 router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Shared Spaces | Login', bodyClass:"login-page" });
 });
+router.get('/cadastrar', function(req, res, next) {
+    res.render('cadastrar', { title: 'Shared Spaces | Cadastrar', bodyClass:"login-page" });
+});
 
 router.get('/sala/:id', async function(req, res, next) {
     

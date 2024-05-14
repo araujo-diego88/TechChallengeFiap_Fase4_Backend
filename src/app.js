@@ -6,6 +6,7 @@ import routes from './routes';
 
 var indexRouter = require('./routes-frontend');
 
+
 class App{
 
   constructor(){

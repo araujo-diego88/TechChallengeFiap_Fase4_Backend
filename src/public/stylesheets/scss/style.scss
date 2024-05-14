@@ -1,4 +1,4 @@
-// sass ./public/stylesheets/scss/style.scss ./public/stylesheets/css/style.css
+// sass ./src/public/stylesheets/scss/style.scss ./src/public/stylesheets/css/style.css
 
 // Bootstrap
 // @import "../../../node_modules/bootstrap/scss/bootstrap";
@@ -21,6 +21,24 @@ a {
     --creditos-border-top-color: #67696c;
     --creditos-text-color: #fff;
     --creditos-icon-color: #fff;
+
+    --form-background-color: #000;
+    --btn-form-background-color: #3eb49a;
+    --btn-form-border-color: #3eb49a;
+    --btn-form-text-color: #FFF;
+    --btn-form-background-color_hover: #0b5351;
+    --btn-form-border-color_hover: #0b5351;
+    --btn-form-text-color_hover: #fff;
+    --form-title-color: #FFF;
+    --form-title-strong-color: #3eb49a;
+    --form-title-b-color: #34FFD2;
+    --form-text-color: #FFF;
+    --form-max-width-size: 1000px;
+    --form-input-border-color: #3eb49a;
+    --form-input-border-color-focus: #3eb49a;
+    --form-input-border-shadow-focus: 0 0 .3rem .25rem #3eb49add;
+    --form-loading-size: 50px;
+    --form-loading-color: #3eb49a;
 }
 
 body {
@@ -448,4 +466,145 @@ a:hover.dropdown-toggle:not(.submenu)::after {
     max-height: 70vh;
     overflow: auto;
     /* padding: 10px; */
+}
+
+
+// Formulario teste
+
+.main-formulario-seo {
+    font-size: 14px;
+    padding: 3rem 3rem 2rem 3rem;
+    border-radius: 8px;
+    background-color: var(--form-background-color);
+
+}
+
+.main-formulario-seo .form-label-title {
+    color: #34ffd2;
+    font-weight: 300;
+    font-size: 20px
+}
+
+.main-formulario-seo .form-check-input {
+    width: 1.3em;
+    height: 1.3em;
+    margin-top: .15em;
+    margin-right: 5px
+}
+
+.main-formulario-seo .form-check-label {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 300
+}
+
+.main-formulario-seo a.link-form {
+    color: #34ffd2;
+    text-decoration: underline;
+    transition: all .4s
+}
+
+.main-formulario-seo a:hover.link-form {
+    opacity: .7
+}
+
+.btn_formulario {
+    background-color: var(--btn-form-background-color);
+    border: 1px var(--btn-form-border-color) solid;
+    color: var(--btn-form-text-color) !important;
+    border-radius: 8px;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    font-size: 16px;
+    line-height: 1;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: all .3s
+}
+
+.main-formulario-seo input[type=number],
+.main-formulario-seo input[type=tel],
+.main-formulario-seo input[type=text],
+.main-formulario-seo textarea {
+    background-color: #fff;
+    border-color: var(--form-input-border-color) !important;
+    border-width: 1px 1px 1px 1px;
+    border-radius: 8px 8px 8px 8px;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.3em;
+    letter-spacing: -.3px;
+    padding: .75em
+}
+
+.main-formulario-seo .form-control:focus {
+    border-color: var(--form-input-border-color-focus);
+    box-shadow: var(--form-input-border-shadow-focus)
+}
+
+.btn_formulario:focus,
+.btn_formulario:hover {
+    background-color: var(--btn-form-background-color_hover);
+    border: 1px var(--btn-form-border-color_hover) solid;
+    color: var(--btn-form-text-color_hover) !important;
+    text-decoration: none !important;
+    transform: scale(.9)
+}
+
+.btn_formulario:focus {
+    transform: scale(.92)
+}
+
+.main-formulario-seo h2 {
+    color: var(--form-title-color);
+    font-size: 25px;
+    text-transform: uppercase;
+    font-weight: 400;
+    line-height: 1.3;
+    text-align: center;
+    letter-spacing: -1px
+}
+
+.main-formulario-seo h2 strong {
+    color: var(--form-title-strong-color);
+    font-weight: 600
+}
+
+.main-formulario-seo h2 b {
+    color: var(--form-title-b-color);
+    font-weight: 700
+}
+
+.main-formulario-seo p {
+    color: var(--form-text-color);
+    font-size: 16px;
+    text-align: center
+}
+
+div .main-formulario-seo {
+    max-width: var(--form-max-width-size);
+    width: 100%
+}
+
+.main-formulario-seo #loader {
+    position: relative;
+    top: 5rem;
+    height: 0;
+    display: none
+}
+
+.main-formulario-seo #loader .spinner-border {
+    width: var(--form-loading-size);
+    height: var(--form-loading-size);
+    color: var(--form-loading-color)
+}
+
+@media (max-width:768px) {
+    .main-formulario-seo {
+        padding: 2rem 1rem
+    }
+
+    .main-formulario-seo #loader {
+        top: 8rem
+    }
 }
