@@ -7,30 +7,26 @@
         </div>
 
         <form id="login-form" class="row g-3 p-0 m-0" role="form" action="#" method="post">
-            <div id="login-alert" class="alert alert-danger col-12 p-2">
-                <i class="fa-solid fa-circle-exclamation"></i>
-                <span id="mensagem"></span>
+            <div id="loader" class="text-center" style="display: none;">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Carregando...</span>
+                </div>
             </div>
-            <div id="login-success" class="alert alert-success col-12 p-2">
-                <i class="fa-regular fa-circle-check"></i>
-                <span id="mensagem_success"></span>
-            </div>
-            <div id="login-msg" class="alert alert-primary col-12 p-2">
-                <i class="fa-solid fa-arrow-right-to-bracket"></i> Faça o Login para continuar.
-            </div>
+    
+            <div id="response_notification"><div id="login-msg" class="alert alert-primary"><i class="fa-solid fa-arrow-right-to-bracket"></i> Faça o Login para continuar.</div></div>
 
             <div class="col-12">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input type="email" class="form-control" id="email" name="email" required placeholder="Informe seu E-mail">
+                <input type="text" class="form-control" id="username" name="username" required placeholder="Informe seu Usuario">
             </div>
 
             <div class="col-12">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                <input type="password" class="form-control" id="senha" name="senha" required placeholder="Informe sua Senha">
+                <input type="password" class="form-control" id="password" name="password" required placeholder="Informe sua Senha">
             </div>
 
             <div class="col-12 text-center">
-                <button type="button" class="btn btn-primary" name="btn-login" id="btn-login">Entrar</button>
+                <button id="BTEnvia" type="submit" class="btn btn-primary" name="btn-login" id="btn-login">Entrar</button>
             </div>
 
         </form>
@@ -38,5 +34,66 @@
     </div>
 
 </div>
+
+<script>
+
+    function convertFormToJSON(form) {
+        const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+        const json = {};
+        $.each(array, function () {
+            json[this.name] = this.value || "";
+        });
+        return json;
+    }
+
+     $(document).ready(function() {
+          var request;
+
+          $('#login-form').submit(function (event) {
+               // Prevent default posting of form - put here to work in case of errors
+               event.preventDefault();
+
+               // Abort any pending request
+               if (request) {
+                    request.abort();
+               }
+
+               var $form = $(this);
+               const form_data = convertFormToJSON($form);
+               console.log(form_data);
+               console.log(JSON.stringify(form_data));
+
+               $.ajax({
+                    type: 'POST',
+                    url: '<%=Url%>loginsession',
+                    contentType: 'application/json',
+
+                    data: JSON.stringify(form_data),
+                    await: true,
+                    dataType: 'json',
+                    beforeSend: function () {
+                         $("#login-form").css("opacity", 0.6);
+                         $('#loader').show();
+                         $('#login-msg').hide();
+                    },
+                    success: function(response) {
+                         $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Login feito com sucesso</div>');
+                         console.log(response);
+                         window.location.href = "<%=Url%>"
+                    },
+                    error: function(response) {
+                         $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
+                         console.log(response);
+                    },          
+                    complete: function () {
+                         $('#loader').hide();
+                         $("#login-form").css("opacity", 1);
+                         $('.alert').fadeIn('slow');
+                    }
+               });
+          });
+     });
+
+</script>
 
 <%- include includes/footer %>

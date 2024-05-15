@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
+import session from 'express-session';
 import routes from './routes';
 
 var indexRouter = require('./routes-frontend');
@@ -28,6 +29,13 @@ class App{
     this.server.set('view engine', 'ejs');
     this.server.use(express.static(path.join(__dirname, 'public')));
     this.server.use('/', indexRouter);
+
+    this.server.use(express.urlencoded({ extended: true }));
+    this.server.use(session({
+        secret: 'AC44-FIAP-AppQ38Saa',
+        resave: true,
+        saveUninitialized: true
+    }));
 
 
     this.server.use('/css', express.static(path.resolve(__dirname, 'public/stylesheets/css')));

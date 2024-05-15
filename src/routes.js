@@ -1,6 +1,7 @@
 import { Router } from "express";
 import multer from "multer";
 import uploadConfig from "./config/upload";
+import session from 'express-session';
 
 import SessionController from "./controllers/SessionController";
 import PlaceController from "./controllers/PlaceController";
@@ -20,6 +21,10 @@ routes.delete('/places', PlaceController.destroy);
 
 // routes.post('/sessions', upload.single('avatar'), SessionController.store);
 routes.post('/sessions', SessionController.store);
+routes.post('/loginsession', SessionController.login);
+
+
+routes.get('/placefind', PlaceController.id_find);
 
 routes.get('/dashboard', DashboardController.show);
 
