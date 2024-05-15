@@ -18,7 +18,8 @@ routes.get('/placefind', PlaceController.id_find);
 routes.put('/places/:place_id', upload.single('thumbnail'), PlaceController.update);
 routes.delete('/places', PlaceController.destroy);
 
-routes.post('/sessions', upload.single('avatar'), SessionController.store);
+// routes.post('/sessions', upload.single('avatar'), SessionController.store);
+routes.post('/sessions', SessionController.store);
 
 routes.get('/dashboard', DashboardController.show);
 

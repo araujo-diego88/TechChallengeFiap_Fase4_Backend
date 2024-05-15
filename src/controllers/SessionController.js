@@ -16,7 +16,7 @@ class SessionController{
       password: yup.string().required(),
     });
 
-    const { filename } = req.file;
+    // const { filename } = req.file;
     const { nome, data_nascimento, data_cadastro, username, email, password } = req.body;
     if(!(await schema.isValid(req.body))){
       return res.status(400).json({error: 'Falha na validação! Digite um e-mail válido.'});
@@ -45,7 +45,7 @@ class SessionController{
       username,
       email,
       password: new_pw,
-      avatar: filename,
+      // avatar: filename,
     });
     
 

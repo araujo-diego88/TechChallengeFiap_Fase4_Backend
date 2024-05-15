@@ -27,9 +27,9 @@
              <div class="col-12 col-md-6">
                  <input name="password" type="password" class="form-control" id="formPassword" placeholder="Senha*" required  aria-required="true">
              </div> 
-             <div class="col-12">
+             <!-- <div class="col-12">
                 <input class="form-control" type="file" id="formAvatar" name="avatar">
-              </div>
+              </div> -->
              <div class="col-12">
                  <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Enviar</button>
              </div>
@@ -41,14 +41,14 @@
 
 <script>
 
-function convertFormToJSON(form) {
-  const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
-  const json = {};
-  $.each(array, function () {
-    json[this.name] = this.value || "";
-  });
-  return json;
-}
+    function convertFormToJSON(form) {
+        const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+        const json = {};
+        $.each(array, function () {
+            json[this.name] = this.value || "";
+        });
+        return json;
+    }
 
      $(document).ready(function() {
           var request;
@@ -74,24 +74,16 @@ function convertFormToJSON(form) {
                form_data.data_cadastro = today;
                console.log(form_data);
 
-               var serializeDataArray = $form.serialize();
-               //  const json = convertFormToJSON($form);
-               
-               // console.log(json);
-               // console.log(json.nome);
-               // serializeDataArray += "&url=<?php echo $_SERVER['SCRIPT_URI']?>&palavrachave=<?php echo $title?>"
-               serializeDataArray += "&data_cadastro=" + today;
-               console.log(serializeDataArray);
-
+                //    var serializeDataArray = $form.serialize();
+                //    serializeDataArray += "&data_cadastro=" + today;
+               console.log(JSON.stringify(form_data));
 
                $.ajax({
                     type: 'POST',
                     url: '<%=Url%>sessions',
-                    // contentType: 'application/x-www-form-urlencoded',
-                    contentType: 'multipart/form-data',
-                    // contentType: 'application/json',
-                    // data: form_data,
-                    data: serializeDataArray,
+                    contentType: 'application/json',
+
+                    data: JSON.stringify(form_data),
                     await: true,
                     dataType: 'json',
                     beforeSend: function () {
@@ -99,10 +91,10 @@ function convertFormToJSON(form) {
                          $('#loader').show();
                     },
                     success: function(response) {
-                         $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert">Cadastro feito com sucesso </div>');
+                         $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Cadastro feito com sucesso</div>');
                     },
                     error: function(response) {
-                         $('#response_notification').html('<div class="alert alert-danger" role="alert">' + response.responseJSON.error + '</div>');
+                         $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
                          console.log(response);
                     },          
                     complete: function () {

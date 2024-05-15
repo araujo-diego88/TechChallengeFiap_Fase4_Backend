@@ -7,15 +7,15 @@ const UserSchema = new Schema({
   username: String,
   email: String,
   password: String,
-  avatar: String,
+  // avatar: String,
 },{
   toJSON:{
     virtuals: true
   }
 });
 
-UserSchema.virtual('avatar_url').get(function(){
-  return `http://localhost:3333/files/${this.avatar}`;
-})
+// UserSchema.virtual('avatar_url').get(function(){
+//   return `http://localhost:3333/files/${this.avatar}`;
+// })
 
 export default model('User', UserSchema);
