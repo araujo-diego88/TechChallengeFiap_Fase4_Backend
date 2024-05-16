@@ -8,6 +8,7 @@ const UserSchema = new Schema({
   email: String,
   password: String,
   // avatar: String,
+  isAdmin: Boolean
 },{
   toJSON:{
     virtuals: true

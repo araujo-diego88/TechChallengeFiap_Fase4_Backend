@@ -6,7 +6,9 @@ const crypto = require('crypto');
 class SessionController{
 
   async store(req, res){
-    console.log(req.body)
+    // console.log(req.body)
+
+    req.body.isAdmin = false;
 
     const schema = yup.object().shape({
       nome: yup.string().required(),
@@ -15,10 +17,11 @@ class SessionController{
       username: yup.string().required(),
       email: yup.string().email().required(),
       password: yup.string().required(),
+      isAdmin: yup.boolean().required()
     });
 
     // const { filename } = req.file;
-    const { nome, data_nascimento, data_cadastro, username, email, password } = req.body;
+    const { nome, data_nascimento, data_cadastro, username, email, password, isAdmin } = req.body;
     if(!(await schema.isValid(req.body))){
       return res.status(400).json({error: 'Falha na validação! Digite um e-mail válido.'});
     }
@@ -46,6 +49,7 @@ class SessionController{
       username,
       email,
       password: new_pw,
+      isAdmin
       // avatar: filename,
     });
     
@@ -53,7 +57,7 @@ class SessionController{
     return res.json(user);
   }
 
-  async login(req, res){
+  async login(req, res,next){
     // console.log(req.body)
 
     const schema = yup.object().shape({
@@ -80,12 +84,19 @@ class SessionController{
       return res.status(400).json({error: 'Senha incorreta'});
     }
 
+    req.session.conta = user;
+    req.session.loggedIn = true;
 
-    req.session.usuario = user.username
-    console.log(user.username)
-    console.log(req.session.usuario)
+    // console.log(req.session)
 
-    return res.status(200).json({sucess: 'Usuario logado com sucesso'});
+    // console.log(user.username)
+    // console.log(req.session.usuario)
+    await req.session.save();
+    
+    return res.send({sucess: 'Usuario logado com sucesso'});
+    // res.redirect('/');
+    
+    // return res.send('Login realizado com sucesso!');
   }
 }
 
