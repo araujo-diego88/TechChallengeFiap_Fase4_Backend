@@ -58,15 +58,15 @@
             </button>
           </div>
     
-          <div class="col-12 col-lg-8">
+          <div class="col-12 col-lg-6">
             <div class="offcanvas offcanvas-end" tabindex="-1" id="navbarMain">
               <div class="offcanvas-header justify-content-end">
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-lg-center align-items-lg-center flex-grow-1 pe-lg-3 gap-lg-2 w-100">
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="">Home</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="reservar">Nossos Espaços</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>">Home</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>reservar">Nossos Espaços</a></li>
                   <!-- <li class="nav-item"><a class="tm-redirecionamento nav-link" href="reservar">Nossos Espaços</a></li> -->
                   
                   <!-- <li class="nav-item dropdown">
@@ -90,8 +90,16 @@
             </div>
           </div>
     
-          <div class="d-none d-lg-block col-lg-2">
-            <span>Logado: <%=sessao.conta.username%></span>
+          <div class="d-flex col-lg-4 gap-3 justify-content-end align-itens-center">
+            <% if(sessao.loggedIn) { %>
+              <a class="nav-link  d-flex gap-2 align-itens-center" href="<%=Url%>minha-conta"><i class="fas fa-user me-2"></i>Minha conta</a> 
+              <span class="text-white">|</span>
+              <a class="nav-link d-flex gap-2 align-itens-center" href="<%=Url%>logout"><i class="fas fa-left-to-bracket me-2"></i>Sair da conta</a> 
+            <% } else { %>
+              <a class="nav-link d-flex gap-2 align-itens-center" href="<%=Url%>login"><i class="fas fa-right-to-bracket me-2"></i>Entrar</a> 
+              <span class="text-white">|</span>
+              <a class="nav-link d-flex gap-2 align-itens-center" href="<%=Url%>cadastrar"><i class="far fa-square-plus me-2"></i>Cadastrar</a> 
+            <% } %>
             <!-- <ul class="m-0 list-unstyled list-sociais-header">
               <li><a class="tm-facebook" href="<%= linkface %>" target="_blank" title="Facebook"><i class="fab fa-facebook-square"></i></a></li>
               <li><a class="tm-instagram" href="<%= Instagram %>" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
@@ -103,3 +111,6 @@
       </nav>
       
     </header>
+    <% if(sessao.loggedIn) { %>
+    <p>Teste: <%=sessao.conta._id%> </p>
+    <% } %>

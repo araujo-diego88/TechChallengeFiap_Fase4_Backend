@@ -1,0 +1,106 @@
+<%- include includes/header %>
+<div class="main-formulario-seo">
+     <h2>Atualizar conta</h2>
+     <p>Prencha as informações abaixo</p>
+     <div class="container p-3" id="formUpdateContaDiv">
+         <div id="loader" class="text-center">
+             <div class="spinner-border" role="status">
+                 <span class="visually-hidden">Carregando...</span>
+             </div>
+         </div>
+ 
+         <div id="response_notification"></div>
+ 
+         <form id="formUpdateConta" class="row g-3 text-center justify-content-center" method="post" action="#formUpdateContaDiv">
+             <div class="col-12 col-md-6">
+                 <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" value="<%=sessao.conta.nome%>"  required  aria-required="true">
+             </div> 
+             <div class="col-12 col-md-6">
+                 <input name="email" type="email" class="form-control" id="formEmail" placeholder="E-mail*" value="<%=sessao.conta.email%>" required  aria-required="true">
+             </div> 
+             <div class="col-12 col-md-6">
+                 <input name="data_nascimento" type="date" class="form-control" id="formDate" placeholder="Data Nascimento*" value="<%=sessao.conta.data_nascimento%>" required  aria-required="true">
+             </div> 
+             <div class="col-12 col-md-6">
+                 <input name="password" type="password" class="form-control" id="formPassword" placeholder="Nova Senha*" aria-required="true">
+             </div> 
+             <div class="col-12">
+                 <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Enviar</button>
+             </div>
+         </form>
+     </div>
+ </div>
+
+
+
+<script>
+
+    function convertFormToJSON(form) {
+        const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+        const json = {};
+        $.each(array, function () {
+            json[this.name] = this.value || "";
+        });
+        return json;
+    }
+
+     $(document).ready(function() {
+          var request;
+
+          $('#formUpdateConta').submit(function (event) {
+               // Prevent default posting of form - put here to work in case of errors
+               event.preventDefault();
+
+               // Abort any pending request
+               if (request) {
+                    request.abort();
+               }
+
+               var $form = $(this);
+            //    var today = new Date();
+            //    var dd = String(today.getDate()).padStart(2, '0');
+            //    var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            //    var yyyy = today.getFullYear();
+
+            //    today = mm + '-' + dd + '-' + yyyy;
+            //    today = yyyy + '-' + mm + '-' + dd
+
+               const form_data = convertFormToJSON($form);
+            //    form_data.data_cadastro = today;
+               console.log(form_data);
+
+                //    var serializeDataArray = $form.serialize();
+                //    serializeDataArray += "&data_cadastro=" + today;
+               console.log(JSON.stringify(form_data));
+
+               $.ajax({
+                    type: 'POST',
+                    url: '<%=Url%>updateconta',
+                    contentType: 'application/json',
+
+                    data: JSON.stringify(form_data),
+                    await: true,
+                    dataType: 'json',
+                    beforeSend: function () {
+                         $("#formUpdateConta").css("opacity", 0.6);
+                         $('#loader').show();
+                    },
+                    success: function(response) {
+                         $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Dados atualizados com sucesso !</div>');
+                         window.location.href = "<%=Url%>minha-conta"
+                    },
+                    error: function(response) {
+                         $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
+                         console.log(response);
+                    },          
+                    complete: function () {
+                         $('#loader').hide();
+                         $("#formUpdateConta").css("opacity", 1);
+                         $('.alert').fadeIn('slow');
+                    }
+               });
+          });
+     });
+
+</script>
+<%- include includes/footer %>

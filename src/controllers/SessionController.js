@@ -22,7 +22,7 @@ class SessionController{
 
     // const { filename } = req.file;
     const { nome, data_nascimento, data_cadastro, username, email, password, isAdmin } = req.body;
-    if(!(await schema.isValid(req.body))){
+    if(!(await schema.isValid(req.body))) {
       return res.status(400).json({error: 'Falha na validação! Digite um e-mail válido.'});
     }
 
@@ -87,7 +87,7 @@ class SessionController{
     req.session.conta = user;
     req.session.loggedIn = true;
 
-    // console.log(req.session)
+    // console.log(req.session.conta._id)
 
     // console.log(user.username)
     // console.log(req.session.usuario)
@@ -98,9 +98,58 @@ class SessionController{
     
     // return res.send('Login realizado com sucesso!');
   }
+
+
+
+async update(req, res){
+
+  const schema = yup.object().shape({
+    nome: yup.string().required(),
+    data_nascimento: yup.string().required(),
+    // data_cadastro: yup.string().required(),
+    // username: yup.string().required(),
+    email: yup.string().email().required(),
+    password: yup.string(),
+    // isAdmin: yup.boolean().required()
+  });
+
+  const { nome, data_nascimento, email, password } = req.body;
+  const { user_id } = req.params;
+
+  console.log(req.body)
+  console.log(user_id)
+
+  // Criptografia da senha
+  
+  // const curr_pw = crypto.createHash('md5').update(current_password).digest('hex');
+
+  if(!(await schema.isValid(req.body))){
+    return res.status(400).json({ error: 'Falha na validação!' });
+  }
+
+  // const user = await User.findById(user_id);
+
+  if(password) {
+    const new_pw = crypto.createHash('md5').update(password).digest('hex');
+    await User.updateOne({username: req.session.conta.username}, {
+      nome,
+      data_nascimento,
+      email,
+      password: new_pw,
+    });
+  }
+  else {
+    await User.updateOne({username: req.session.conta.username}, {
+      nome,
+      data_nascimento,
+      email,
+    });
+  }
+
+  return res.status(200).json({ sucess: 'Dados alterados com sucesso!' });
 }
 
 
 
-
+}
 export default new SessionController();

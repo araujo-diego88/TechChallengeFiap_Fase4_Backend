@@ -1,0 +1,24 @@
+<%- include includes/header %>
+<main class="container py-5">
+    <div class="row">
+        <div class="d-flex align-itens-center col-6">
+            <i class="fa-solid fa-circle-user" style="font-size: 320px;"></i>
+        </div>
+        <div class="col-6 d-flex flex-column justify-content-center">
+            <h1>Minha conta:</h1>
+
+            <p>Bem vindo <strong><%=sessao.conta.nome%></strong>, o que você deseja fazer</p>
+            <ul class="list-unstyled">
+                <li><a href="<%=Url%>alterar-dados"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Alterar dados cadastrais</a></li>
+                <li><a href="<%=Url%>registrar-espaco"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Registrar um espaço</a></li>
+                <li><a href="<%=Url%>gerenciar-espaco"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar meus espaços</a></li>
+                <li><a href="<%=Url%>gerenciar-reserva"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar minhas reservas</a></li>
+                <li><a href="<%=Url%>logout"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Sair da conta</a></li>
+            </ul>
+
+        </div>
+
+        
+    </div>
+</main>
+<%- include includes/footer %>

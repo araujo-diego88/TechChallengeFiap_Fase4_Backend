@@ -79,7 +79,7 @@
                     success: function(response) {
                          $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Login feito com sucesso</div>');
                          console.log(response);
-                         window.location.href = "<%=Url%>"
+                         window.location.href = "<%=Url%>minha-conta"
                     },
                     error: function(response) {
                          $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
