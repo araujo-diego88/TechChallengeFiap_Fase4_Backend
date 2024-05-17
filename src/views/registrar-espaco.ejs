@@ -1,0 +1,197 @@
+<%- include includes/header %>
+<div class="main-formulario-seo">
+     <h2>Registrar Espaço</h2>
+     <p>Prencha as informações abaixo</p>
+     <div class="container p-3" id="FormRegEspacoDiv">
+         <div id="loader" class="text-center">
+             <div class="spinner-border" role="status">
+                 <span class="visually-hidden">Carregando...</span>
+             </div>
+         </div>
+ 
+         <div id="response_notification"></div>
+ 
+         <form id="FormRegEspaco" class="row g-3 text-center justify-content-center" enctype="multipart/form-data" method="post" action="#FormRegEspacoDiv">
+             <div class="col-12">
+                 <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" required  aria-required="true">
+             </div> 
+             <div class="col-12">
+                 <input name="description" type="text" class="form-control" id="formDesc" placeholder="Descrição*" required  aria-required="true">
+             </div> 
+             <div class="col-12">
+                 <textarea name="descricao_longa" type="text" class="form-control" id="formLongDesc" placeholder="Descrição Longa*" required  aria-required="true" rows="5"></textarea>
+            </div> 
+            <div class="col-12">
+                <input name="price" type="number" class="form-control" id="formPrice" placeholder="Preço*" required  aria-required="true">
+            </div> 
+            <div class="col-12">
+                <input name="location" type="text" class="form-control" id="formLocation" placeholder="Endereço*" required  aria-required="true">
+            </div> 
+
+            <div class="col-12 d-flex flex-wrap clone linha_data">
+                <div class="col-10 pe-2">
+                    <input name="datas_disponiveis[0]" type="date" class="form-control" id="formDate[0]" placeholder="Data Disponivel*" required  aria-required="true">
+                </div>
+                <div class="col-2">
+                  <button type="button" title="remover" class="btn button-remove btn-danger col-md-12">
+                    <i class="fas fa-remove"></i>
+                  </button>
+                </div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <button type="button" class="btn button-more btn-success pull-right">
+                    <i class="fas fa-plus-circle"></i> Mais
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="col-12">
+            <input class="form-control" type="file" id="formAvatar" name="thumbnail">
+            </div>
+            <div class="col-12">
+                <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Enviar</button>
+            </div>
+         </form>
+     </div>
+ </div>
+
+<script>
+    var nrQtdProduto = 1;
+    // var nrQtdProdutoRep = 0;
+$(function() {
+
+  $('.button-more').click(function() {
+    var $objDivProduto = $(this).parent().parent().parent().children('.clone');
+    nrQtdProduto = $(this).parent().parent().parent().children('.linha_data').length;
+    // nrQtdProdutoRep = nrQtdProduto-1
+
+    $objDivProduto
+      .clone()
+      .removeClass('clone')
+      .find('input').each(function(k, v) {
+        var strName = $(v).attr('name');
+        var strId = $(v).attr('id');
+
+        $(this)
+          .attr('name', strName.replace('[0]', '['+ nrQtdProduto + ']'))
+          .attr('id', strId.replace('[0]', '['+ nrQtdProduto + ']'));
+
+        //   console.log(nrQtdProdutoRep)
+          console.log(nrQtdProduto)
+
+        if ($(this).attr('type') != 'hidden') {
+          $(this).val('');
+        }
+
+      })
+      .end()
+      .insertAfter($objDivProduto);
+
+    removeElement();
+  });
+
+});
+
+function removeElement() {
+  // -------------------------------------------------------
+  // INICIO DO CÓDIGO DE REMOVER NOVO TELEFONE, EMAIL ...
+  // -------------------------------------------------------
+  $('.button-remove').click(function() {
+
+    nrQtdProduto = $(this).parent().parent().parent().children('.row').length - 1;
+
+    if (nrQtdProduto == 1) {
+      showAlert('Erro', 'Você deve ter ao menos um campo para cadastro.');
+
+      return;
+    }
+
+    if (confirm('Deseja realmente remover a linha ?')) {
+      var objRemove = $(this).parent().parent();
+      objRemove.hide("slow");
+    }
+  });
+}
+
+</script>
+
+<script>
+
+    function convertFormToJSON(form) {
+        const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+        const json = {};
+        $.each(array, function () {
+            json[this.name] = this.value || "";
+        });
+        return json;
+    }
+
+     $(document).ready(function() {
+          var request;
+
+          $('#FormRegEspaco').submit(function (event) {
+               // Prevent default posting of form - put here to work in case of errors
+               event.preventDefault();
+
+               // Abort any pending request
+               if (request) {
+                    request.abort();
+               }
+
+               var $form = $(this);
+               var today = new Date();
+               var dd = String(today.getDate()).padStart(2, '0');
+               var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+               var yyyy = today.getFullYear();
+
+            //    today = mm + '-' + dd + '-' + yyyy;
+               today = yyyy + '-' + mm + '-' + dd
+
+            //    const form_data = convertFormToJSON($form);
+            //    form_data.data_cadastro = today;
+            //    console.log(form_data);
+
+               var formData = new FormData(this);
+                console.log(formData);
+
+                //    var serializeDataArray = $form.serialize();
+                //    console.log(serializeDataArray);
+                //    serializeDataArray += "&data_cadastro=" + today;
+            //    console.log(JSON.stringify(form_data));
+
+               $.ajax({
+                    type: 'POST',
+                    url: '<%=Url%>places',
+                    // contentType: 'multipart/form-data; boundary=0258866893',
+                    contentType: false,
+                    // contentType: 'application/json',
+                    processData: false,
+
+                    data: formData,
+                    // await: true,
+                    // dataType: 'json',
+                    beforeSend: function () {
+                         $("#FormRegEspaco").css("opacity", 0.6);
+                         $('#loader').show();
+                    },
+                    success: function(response) {
+                         $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Cadastro feito com sucesso</div>');
+                    },
+                    error: function(response) {
+                         $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
+                         console.log(response);
+                    },          
+                    complete: function () {
+                         $('#loader').hide();
+                         $("#FormRegEspaco").css("opacity", 1);
+                         $('.alert').fadeIn('slow');
+                    }
+               });
+          });
+     });
+
+</script>
+<%- include includes/footer %>

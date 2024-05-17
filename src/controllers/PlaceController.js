@@ -20,6 +20,8 @@ class PlaceController{
   
 
   async store(req, res){
+    req.body.status = true;
+
     const schema = yup.object().shape({
       nome: yup.string().required(),
       description: yup.string().required(),
@@ -33,9 +35,11 @@ class PlaceController{
 
     const { filename } = req.file;
     const { nome, description, descricao_longa, price, location, status, datas_disponiveis } = req.body;
-    const { user_id } = req.headers;
+    // const { user_id } = req.headers;
+    var user_id = req.session.conta._id
 
     if(!(await schema.isValid(req.body))){
+      console.log(req.body)
       return res.status(400).json({ error: 'Falha na validação!' });
     }
 

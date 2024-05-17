@@ -96,6 +96,16 @@ routes.get('/alterar-dados', function(req, res, next) {
         res.redirect('/login')
     }
 });
+routes.get('/registrar-espaco', function(req, res, next) {
+    if(req.session.loggedIn) {
+        sessao_feita = req.session
+        res.render('registrar-espaco', { title: 'Shared Spaces | Registrar Espaço', bodyClass:"minhaconta-page", sessao:sessao_feita });
+    }
+    else {
+        sessao_feita = {conta: { username:"Nao logado" } }
+        res.redirect('/login')
+    }
+});
 
 routes.get('/sala/:id', async function(req, res) {
     
