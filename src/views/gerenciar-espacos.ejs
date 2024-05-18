@@ -8,11 +8,64 @@
                 <div class="card-body text-center">
                     <h5 class="card-title"><%=lugar.nome%></h5>
                     <p class="card-text"><%=lugar.description%></p>
-                    <a href="<%=Url%>gerenciar/<%=lugar.id%>" class="btn btn-primary">Gerenciar</a>
+                    <a href="<%=Url%>gerenciar/<%=lugar.id%>" class="btn btn-sm btn-warning me-2"><i class="fa-solid fa-pen"></i></a>
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete" data-idEsp="<%=lugar.id%>" data-NomeEspaco="<%=lugar.nome%>" title="Excluir"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </div>
 
        <% }); %>
     </div>
 </main>
+
+<div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ModalDeleteLabel">Excluir</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" id="excluirEspaco">Excluir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+var idCli = null;
+
+const ModalDelete = document.getElementById('ModalDelete')
+ModalDelete.addEventListener('show.bs.modal', event => {
+  const button = event.relatedTarget
+  idEsp = button.getAttribute('data-idEsp')
+  const NomeEspaco = button.getAttribute('data-NomeEspaco')
+  const modalTitle = ModalDelete.querySelector('.modal-title')
+  const modalBodyInput = ModalDelete.querySelector('.modal-body input')
+  modalTitle.textContent = `Voce deseja excluir o espaço ${NomeEspaco}?`
+})
+
+$(document).ready(function() {
+    $('#excluirEspaco').click(function() {
+      // console.log(idCli);
+      $.ajax({
+        type: 'POST',
+        // dataType: 'json',
+        url: '<%=Url%>removeplace/'+idEsp,
+        async: true,
+        // data: "acao=1&id=" + idCli,
+        success: function(response) {
+          alert("Cliente Excluido com sucesso");
+          window.location.reload(true);
+          console.log(response);
+        },
+        error: function(response) {
+          alert("Falha ao remover");
+          console.log(response);
+        }
+      });
+      return false;
+    });
+});
+</script>
+
 <%- include includes/footer %>

@@ -164,20 +164,18 @@ class PlaceController{
   }
 
   async destroy(req, res){
-
-    const { place_id } = req.body;
-    const { user_id } = req.headers;
     
-    const user = await User.findById(user_id);
-    const places = await Place.findById(place_id);
-
-    if(String(user_id) !== String(places.user)){
-      return res.status(401).json({ error: 'Usuário sem permissão para excluir o local!'});
+    const id_place = req.params.place_id
+    const user_id = req.session.conta._id
+    const isAdmin = req.session.conta.isAdmin
+    const places = await Place.findById(id_place); 
+    if(places.user != user_id && !isAdmin) {
+      return res.status(401).json({error: 'Usuário não autorizado!'});
     }
 
-    await Place.findByIdAndDelete({_id: place_id});
+    await Place.findByIdAndDelete({_id: id_place});
     
-    return res.json({message : "Excluído com sucesso!"});
+    return res.json({sucess: "Excluído com sucesso!"});
   }
 }
 

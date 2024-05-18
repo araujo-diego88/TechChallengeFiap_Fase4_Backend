@@ -14,12 +14,11 @@ var sessao_feita = {conta: { username:"Nao logado" } }
 
 /// Parte Backend
 
-routes.post('/places', upload.single('thumbnail') ,PlaceController.store);
 routes.get('/places', PlaceController.index);
 routes.get('/placefind', PlaceController.id_find);
+routes.post('/places', upload.single('thumbnail') ,PlaceController.store);
 routes.post('/places/:place_id', upload.single('thumbnail'), PlaceController.update);
-routes.delete('/places', PlaceController.destroy);
-routes.get('/placefind', PlaceController.id_find);
+routes.post('/removeplace/:place_id', PlaceController.destroy);
 
 routes.post('/sessions', SessionController.store);
 routes.post('/updateconta', SessionController.update);
