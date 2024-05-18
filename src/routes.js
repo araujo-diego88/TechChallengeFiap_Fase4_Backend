@@ -17,7 +17,7 @@ var sessao_feita = {conta: { username:"Nao logado" } }
 routes.post('/places', upload.single('thumbnail') ,PlaceController.store);
 routes.get('/places', PlaceController.index);
 routes.get('/placefind', PlaceController.id_find);
-routes.put('/places/:place_id', upload.single('thumbnail'), PlaceController.update);
+routes.post('/places/:place_id', upload.single('thumbnail'), PlaceController.update);
 routes.delete('/places', PlaceController.destroy);
 routes.get('/placefind', PlaceController.id_find);
 
@@ -107,6 +107,44 @@ routes.get('/registrar-espaco', function(req, res, next) {
     }
 });
 
+routes.get('/gerenciar-espacos', async function(req, res, next) {
+    if(req.session.loggedIn) {
+        sessao_feita = req.session
+
+        const json = await PlaceController.find_user_places(req, res)
+        res.render('gerenciar-espacos', { title: 'Shared Spaces | Gerenciar Espaço', bodyClass:"homepage", sessao:sessao_feita, lugares:json });
+        // console.log(json);
+        
+    }
+    else {
+        sessao_feita = {conta: { username:"Nao logado" } }
+        res.redirect('/login')
+    }
+});
+
+routes.get('/gerenciar/:id', async function(req, res, next) {
+    if(req.session.loggedIn) {
+        sessao_feita = req.session
+
+        // var lugar_id = req.params.id;
+
+        const json = await PlaceController.gerency_single(req, res)
+        // console.log(json);
+
+        if(json) {
+            res.render('gerenciar', { title: 'Shared Spaces | Gerenciar '+ json.nome, bodyClass:"homepage", sessao:sessao_feita, lugar:json, id_lugar:req.params.id });
+        }
+        else {
+            res.render('403', { title: 'Shared Spaces | Acesso negado', bodyClass:"homepage", sessao:sessao_feita });
+        }
+
+    }
+    else {
+        sessao_feita = {conta: { username:"Nao logado" } }
+        res.redirect('/login')
+    }
+});
+
 routes.get('/sala/:id', async function(req, res) {
     
     var lugar_id = req.params.id;
@@ -134,13 +172,5 @@ routes.get('/reservar', async function(req, res) {
     
     res.render('reservar', { title: 'Shared Spaces | Catalogo de reservas', bodyClass:"reservar-page", lugares:json, sessao:sessao_feita });
 });
-
-// Parte admin
-routes.get('/admin/administrar-reservas', async function(req, res, next) {
-    const response = await fetch('http://localhost:3333/places?status=true');
-    const json = await response.json();
-    res.render('admin/administrar-reservas', { title: 'Administrar Reservas', bodyClass:"reservar-page", lugares:json });
-});
-
 
 export default routes;

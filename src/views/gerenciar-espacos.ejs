@@ -1,0 +1,18 @@
+<%- include includes/header %>
+<main class="container py-5">
+    <div class="d-flex flex-wrap gap-4">
+
+        <% lugares.forEach(lugar => { %>
+            <div class="card card-home" style="width: 18rem;">
+                <img src="<%=lugar.thumbnail_url%>" class="card-img-top img-fluid" alt="..." style="width: 18rem; height:200px;object-fit: cover;object-position: center;">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><%=lugar.nome%></h5>
+                    <p class="card-text"><%=lugar.description%></p>
+                    <a href="<%=Url%>gerenciar/<%=lugar.id%>" class="btn btn-primary">Gerenciar</a>
+                </div>
+            </div>
+
+       <% }); %>
+    </div>
+</main>
+<%- include includes/footer %>

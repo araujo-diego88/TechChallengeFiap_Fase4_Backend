@@ -43,7 +43,7 @@ class App{
         secret: 'AC44-FIAP-AppQ38Saa',
         name: "teste-techchalllenge",
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: true,
         cookie:{
           maxAge: 24 * 60 * 60 * 1000 * 7, //seven days
           secure:false

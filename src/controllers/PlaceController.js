@@ -17,9 +17,38 @@ class PlaceController{
     return res.json( places );
   }
 
-  
+  async find_user_places(req, res) {
+    if(!req.session.loggedIn) {
+      return res.status(400).json({ error: 'Falha na autenticação! Tente fazer o login novamente' });
+    }
 
-  async store(req, res){
+    const user_id = req.session.conta._id
+    const places = await Place.find({ user: user_id });
+    
+
+    // return json( places );
+    return places;
+  }
+  async gerency_single(req, res) {
+
+    if(!req.session.loggedIn) {
+      return res.status(400).json({ error: 'Falha na autenticação! Tente fazer o login novamente' });
+    }
+
+    const id_place = req.params.id
+    const places = await Place.findById(id_place); 
+
+    if(places.user != req.session.conta._id)
+      return false
+
+    return places;
+  }
+
+  async store(req, res) {
+    if(!req.session.loggedIn) {
+      return res.status(400).json({ error: 'Falha na autenticação! Tente fazer o login novamente' });
+    }
+
     req.body.status = true;
 
     const schema = yup.object().shape({
@@ -35,14 +64,12 @@ class PlaceController{
 
     const { filename } = req.file;
     const { nome, description, descricao_longa, price, location, status, datas_disponiveis } = req.body;
-    // const { user_id } = req.headers;
     var user_id = req.session.conta._id
 
     if(!(await schema.isValid(req.body))){
       console.log(req.body)
       return res.status(400).json({ error: 'Falha na validação!' });
     }
-
 
     const place = await Place.create({
       user: user_id,
@@ -60,7 +87,18 @@ class PlaceController{
     return res.json(place);
   }
 
-  async update(req, res){
+  async update(req, res) {
+
+    if(!req.session.loggedIn) {
+      return res.status(400).json({ error: 'Falha na autenticação! Tente fazer o login novamente' });
+    }
+
+    if(req.body.status == 'on') {
+      req.body.status = true
+    }
+    else {
+      req.body.status = false
+    }
 
     const schema = yup.object().shape({
       nome: yup.string().required(),
@@ -71,37 +109,58 @@ class PlaceController{
       status: yup.boolean().required(),
       datas_disponiveis: yup.array().required()
     });
+    
+    // console.log(req.file)
+    var filename = 0;
+    if(req.file) {
+      filename = req.file.filename
+    }
 
-    const { filename } = req.file;
-    const { place_id } = req.params;
+
     const { nome, descricao_longa, description, price, location, status, datas_disponiveis } = req.body;
-    const { user_id } = req.headers;
-
+    
+    
     if(!(await schema.isValid(req.body))){
       return res.status(400).json({ error: 'Falha na validação!' });
     }
 
-    const user = await User.findById(user_id);
-    const places = await Place.findById(place_id);
+    const id_place = req.params.place_id
+    const user_id = req.session.conta._id
+    const isAdmin = req.session.conta.isAdmin
+    
+    const places = await Place.findById(id_place); 
+    console.log(id_place)
+    console.log(places)
 
-    if(String(user_id) !== String(places.user)){
+    if(places.user != user_id && !isAdmin) {
       return res.status(401).json({ error: 'Usuário não autorizado!'});
     }
 
+    if(filename) {
+      await Place.updateOne({_id: id_place}, {
+        thumbnail: filename,
+        description,
+        descricao_longa,
+        price,
+        location,
+        status,
+        nome,
+        datas_disponiveis,
+      });
+    }
+    else {
+      await Place.updateOne({_id: id_place}, {
+        description,
+        descricao_longa,
+        price,
+        location,
+        status,
+        nome,
+        datas_disponiveis,
+      });
+    }
 
-    await Place.updateOne({_id: place_id}, {
-      user: user_id,
-      thumbnail: filename,
-      description,
-      descricao_longa,
-      price,
-      location,
-      status,
-      nome,
-      datas_disponiveis,
-    });
-
-    return res.send();
+    return res.json({sucess : "Atualizado com sucesso!"});
   }
 
   async destroy(req, res){
