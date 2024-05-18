@@ -5,14 +5,19 @@ import * as yup from 'yup';
 class PlaceController{
 
   async index(req, res){
-    const { status, id } = req.query;
-    const places = await Place.find({ status, id });
+    const places = await Place.find({ status: true });
 
-    return res.json( places );
+    return places;
+  }
+  async index_all(req, res){
+    const places = await Place.find();
+
+    return places;
   }
   async id_find(req, res){
     const { place_id } = req.query;
     const places = await Place.findById(place_id);
+    
 
     return res.json( places );
   }
@@ -38,7 +43,7 @@ class PlaceController{
     const id_place = req.params.id
     const places = await Place.findById(id_place); 
 
-    if(places.user != req.session.conta._id)
+    if(places.user != req.session.conta._id && !req.session.conta.isAdmin)
       return false
 
     return places;

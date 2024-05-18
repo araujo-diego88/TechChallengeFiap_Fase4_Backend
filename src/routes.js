@@ -34,8 +34,8 @@ routes.delete('/reserves/cancel', ReserveController.destroy);
 
 // Index
 routes.get(`/`, async function (req, res, next) {
-    const response = await fetch('http://localhost:3333/places?status=true');
-    const json = await response.json();
+    // const response = await fetch('http://localhost:3333/places?status=true');
+    const json = await PlaceController.index(req, res)
     
     if(req.session.loggedIn)
         sessao_feita = req.session
@@ -110,8 +110,30 @@ routes.get('/gerenciar-espacos', async function(req, res, next) {
     if(req.session.loggedIn) {
         sessao_feita = req.session
 
-        const json = await PlaceController.find_user_places(req, res)
+        const json = json = await PlaceController.find_user_places(req, res)
+
+            
+
         res.render('gerenciar-espacos', { title: 'Shared Spaces | Gerenciar Espaço', bodyClass:"homepage", sessao:sessao_feita, lugares:json });
+        // console.log(json);
+        
+    }
+    else {
+        sessao_feita = {conta: { username:"Nao logado" } }
+        res.redirect('/login')
+    }
+});
+
+routes.get('/adm-gerenciar-espacos', async function(req, res, next) {
+    if(req.session.loggedIn) {
+        sessao_feita = req.session
+
+        const json = await PlaceController.index_all(req, res)
+        if(req.session.conta.isAdmin)
+            res.render('gerenciar-espacos', { title: 'Shared Spaces | *ADMIN* Gerenciar Espaço', bodyClass:"homepage", sessao:sessao_feita, lugares:json });
+        else 
+            res.render('403', { title: 'Shared Spaces | Acesso negado', bodyClass:"homepage", sessao:sessao_feita });
+
         // console.log(json);
         
     }

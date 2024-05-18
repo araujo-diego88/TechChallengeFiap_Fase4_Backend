@@ -16,6 +16,15 @@
                 <li><a href="<%=Url%>logout"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Sair da conta</a></li>
             </ul>
 
+            <% if(sessao.conta.isAdmin) { %>
+            <h1>ADMIN:</h1>
+
+            <p>Parabens parece que voce possui todos os privilegios</p>
+            <ul class="list-unstyled">
+                <li><a href="<%=Url%>adm-gerenciar-espacos"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar todos os espaços</a></li>
+            </ul>
+            <% } %>
+
         </div>
 
         

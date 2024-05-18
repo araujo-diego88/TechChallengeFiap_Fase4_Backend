@@ -8,6 +8,8 @@
                 <div class="card-body text-center">
                     <h5 class="card-title"><%=lugar.nome%></h5>
                     <p class="card-text"><%=lugar.description%></p>
+                    <p class="card-text"><%=lugar.price%></p>
+
                     <a href="<%=Url%>gerenciar/<%=lugar.id%>" class="btn btn-sm btn-warning me-2"><i class="fa-solid fa-pen"></i></a>
                     <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete" data-idEsp="<%=lugar.id%>" data-NomeEspaco="<%=lugar.nome%>" title="Excluir"><i class="fa-solid fa-trash"></i></button>
                 </div>

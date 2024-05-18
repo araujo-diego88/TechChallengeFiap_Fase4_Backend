@@ -121,11 +121,19 @@ $(function()
 
 $('.button-remove').click(function() {
 
-  nrQtdProduto = $(this).parent().parent().parent().children('.linha_data').length - 1;
+nrQtdProduto = $(this).parent().parent().parent().children('.linha_data').length ;
 
+if (nrQtdProduto == 1) {
+  alert('Erro - Você deve ter ao menos um campo para cadastro.');
+  return;
+}
+
+if (confirm('Deseja realmente remover a linha ?')) {
   var objRemove = $(this).parent().parent();
-  objRemove.hide();
+  objRemove.remove();
+}
 });
+
 
 
 </script>
