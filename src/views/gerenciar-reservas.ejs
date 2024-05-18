@@ -1,0 +1,74 @@
+<%- include includes/header %>
+<main class="container py-5">
+    <div class="d-flex flex-wrap gap-4">
+
+        <% reservas.forEach(reserva => { %>
+            <div class="card card-home" style="width: 18rem;">
+                <img src="<%=reserva.place.thumbnail_url%>" class="card-img-top img-fluid" alt="..." style="width: 18rem; height:200px;object-fit: cover;object-position: center;">
+                <div class="card-body text-center">
+                    <h5 class="card-title"><%=reserva.place.nome%></h5>
+                    <p class="card-text"><%=reserva.place.description%></p>
+                    <p class="card-text"><%=reserva.place.price%></p>
+                    <p class="card-text"><%=reserva.date%></p>
+
+                    <!-- <a href="<%=Url%>gerenciar/<%=reserva._id%>" class="btn btn-sm btn-warning me-2"><i class="fa-solid fa-pen"></i></a> -->
+                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete" data-idRes="<%=reserva._id%>" data-NomeEspaco="<%=reserva.place.nome%>" title="Excluir"><i class="fa-solid fa-trash me-2"></i>Cancelar reserva</button>
+                </div>
+            </div>
+
+       <% }); %>
+    </div>
+</main>
+
+<div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalDeleteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="ModalDeleteLabel">Excluir</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+          <button type="button" class="btn btn-danger" id="cancelarReserva">Sim</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<script>
+var idCli = null;
+
+const ModalDelete = document.getElementById('ModalDelete')
+ModalDelete.addEventListener('show.bs.modal', event => {
+  const button = event.relatedTarget
+  idRes = button.getAttribute('data-idRes')
+  const NomeEspaco = button.getAttribute('data-NomeEspaco')
+  const modalTitle = ModalDelete.querySelector('.modal-title')
+  const modalBodyInput = ModalDelete.querySelector('.modal-body input')
+  modalTitle.textContent = `Voce realmente deseja cancelar a reserva feita no "${NomeEspaco}"?`
+})
+
+$(document).ready(function() {
+    $('#cancelarReserva').click(function() {
+      // console.log(idCli);
+      $.ajax({
+        type: 'POST',
+        // dataType: 'json',
+        url: '<%=Url%>reserves/cancel/'+idRes,
+        async: true,
+        // data: "acao=1&id=" + idCli,
+        success: function(response) {
+          alert("Reserva cancelada com sucesso");
+          window.location.reload(true);
+          console.log(response);
+        },
+        error: function(response) {
+          alert("Falha ao cancelar");
+          console.log(response);
+        }
+      });
+      return false;
+    });
+});
+</script>
+
+<%- include includes/footer %>

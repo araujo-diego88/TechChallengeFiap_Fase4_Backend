@@ -15,11 +15,11 @@ class PlaceController{
     return places;
   }
   async id_find(req, res){
-    const { place_id } = req.query;
+    const place_id = req.params.id;
     const places = await Place.findById(place_id);
     
 
-    return res.json( places );
+    return places;
   }
 
   async find_user_places(req, res) {

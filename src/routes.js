@@ -4,7 +4,6 @@ import uploadConfig from "./config/upload";
 
 import SessionController from "./controllers/SessionController";
 import PlaceController from "./controllers/PlaceController";
-import DashboardController from './controllers/DashboardController';
 import ReserveController from "./controllers/ReserveController";
 
 const routes = new Router();
@@ -24,10 +23,9 @@ routes.post('/sessions', SessionController.store);
 routes.post('/updateconta', SessionController.update);
 routes.post('/loginsession', SessionController.login);
 
-routes.get('/dashboard', DashboardController.show);
 routes.post('/places/:place_id/reserve', ReserveController.store);
 routes.get('/reserves', ReserveController.index);
-routes.delete('/reserves/cancel', ReserveController.destroy);
+routes.post('/reserves/cancel/:reserve_id', ReserveController.destroy);
 
 
 /// Parte Frontend
@@ -112,9 +110,22 @@ routes.get('/gerenciar-espacos', async function(req, res, next) {
 
         const json = json = await PlaceController.find_user_places(req, res)
 
-            
-
         res.render('gerenciar-espacos', { title: 'Shared Spaces | Gerenciar Espaço', bodyClass:"homepage", sessao:sessao_feita, lugares:json });
+        // console.log(json);
+        
+    }
+    else {
+        sessao_feita = {conta: { username:"Nao logado" } }
+        res.redirect('/login')
+    }
+});
+routes.get('/gerenciar-reservas', async function(req, res, next) {
+    if(req.session.loggedIn) {
+        sessao_feita = req.session
+
+        const json = await ReserveController.index(req, res)
+
+        res.render('gerenciar-reservas', { title: 'Shared Spaces | Gerenciar Reservas', bodyClass:"homepage", sessao:sessao_feita, reservas:json });
         // console.log(json);
         
     }
@@ -168,9 +179,10 @@ routes.get('/gerenciar/:id', async function(req, res, next) {
 
 routes.get('/sala/:id', async function(req, res) {
     
-    var lugar_id = req.params.id;
-    const response = await fetch('http://localhost:3333/placefind?place_id='+lugar_id);
-    const json = await response.json();
+    // var lugar_id = req.params.id;
+    // const response = await fetch('http://localhost:3333/placefind?place_id='+lugar_id);
+    // const json = await response.json();
+    const json = await PlaceController.id_find(req, res)
     
     if(req.session.loggedIn)
         sessao_feita = req.session
