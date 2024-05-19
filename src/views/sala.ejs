@@ -39,12 +39,14 @@
       <p class="h5 mb-4 text-center">Reservar: <%=lugares.nome%></p>
       <form class="row g-3 form-reservar" id="reservarEspaco" method="post">
         <div class="col-12">
-          <label class="form-label"><b>Preço:</b> R$ <%=lugares.price%>,00</label>
+          <label class="form-label"><b>Data:</b> <span id="itemData">-</span></label>
+          <label class="form-label"><b>Preço:</b> <span id="itemPreco">R$ <%=lugares.price%>,00</span></label>
+          <label class="form-label"><b>Vagas Restantes:</b> <span id="itemVagas">-</span></label>
         </div>
 
         <div class="col-12">
           <label for="numPessoas" class="form-label">Número total de pessoas:</label>
-          <input type="number" min="1" value="1" class="form-control" name="num_pessoas" id="numPessoas" placeholder="Numero total de pessoas*" required>
+          <input type="number" min="1" max="100" value="1" class="form-control" name="num_pessoas" id="numPessoas" placeholder="Numero total de pessoas*" required>
         </div>
 
         <div class="col-12">
@@ -98,127 +100,128 @@
   </div>
 </div>
 
-	
+<!-- Lightbox -->
+<script>
+  const ModalImagens = document.getElementById('ModalImagens')
+  ModalImagens.addEventListener('show.bs.modal', event => {
+    const button = event.relatedTarget
+    const recipient = button.getAttribute('ping')
+    const modalBodyImg = ModalImagens.querySelector('.modal-body img')
 
-	<!-- <div class="botoes-contato-desktop d-flex">
-		<div class="contato-collapse collapse rounded-pill" id="botoescontato">
-			<a title="Localização" href="https://maps.app.goo.gl/LQkYLXr8MpVDpRys8" id="btn-fl-localizacao"
-				class="icon_localizacao tm-localizacao" target="_blank">
-				<i class="fas fa-location-dot"></i>
-			</a>
-			<a title="Telefone" href="tel:+5511944413156" class="icon_phone tm-phone" target="_blank">
-				<svg aria-hidden="true" class="ico_d " width="39" height="39" viewBox="0 0 39 39" fill="none"
-					xmlns="http://www.w3.org/2000/svg" style="transform: rotate(0deg);">
-					<path
-						d="M19.3929 14.9176C17.752 14.7684 16.2602 14.3209 14.7684 13.7242C14.0226 13.4259 13.1275 13.7242 12.8292 14.4701L11.7849 16.2602C8.65222 14.6193 6.11623 11.9341 4.47529 8.95057L6.41458 7.90634C7.16046 7.60799 7.45881 6.71293 7.16046 5.96705C6.56375 4.47529 6.11623 2.83435 5.96705 1.34259C5.96705 0.596704 5.22117 0 4.47529 0H0.745882C0.298353 0 5.69062e-07 0.298352 5.69062e-07 0.745881C5.69062e-07 3.72941 0.596704 6.71293 1.93929 9.3981C3.87858 13.575 7.30964 16.8569 11.3374 18.7962C14.0226 20.1388 17.0061 20.7355 19.9896 20.7355C20.4371 20.7355 20.7355 20.4371 20.7355 19.9896V16.4094C20.7355 15.5143 20.1388 14.9176 19.3929 14.9176Z"
-						transform="translate(9.07179 9.07178)" fill="white"></path>
-				</svg>
-			</a>
-			<a title="Whatsapp" href="https://api.whatsapp.com/send?phone=5511944413156" class="icon_whats tm-whats"
-				target="_blank">
-				<i class="fab fa-whatsapp"></i>
-			</a>
-			<a title="Email" href="mailto:contato@maxrank.com.br" class="icon_mail tm-mail" target="_blank">
-				<i class="fa-regular fa-envelope"></i>
-			</a>
-		</div>
-		<a class="collapsed icon_contato d-none d-lg-flex" title="Entrar em Contato" data-bs-toggle="collapse"
-			href="#botoescontato" role="button" aria-expanded="false" aria-controls="botoescontato"><i
-				class="far fa-contato"></i></a>
-		<a title="Voltar ao Topo" href="#" class="icon_topo" id="back-to-top" style="display: flex;"><i
-				class="fas fa-angles-up"></i></a>
-	</div> -->
+    modalBodyImg.src = recipient
+  })
 
-  <!-- Lightbox -->
-	<script>
-		const ModalImagens = document.getElementById('ModalImagens')
-		ModalImagens.addEventListener('show.bs.modal', event => {
-			const button = event.relatedTarget
-			const recipient = button.getAttribute('ping')
-			const modalBodyImg = ModalImagens.querySelector('.modal-body img')
-
-			modalBodyImg.src = recipient
-		})
-
-    const ModalConfirm = document.getElementById('ModalConfirm')
-    ModalConfirm.addEventListener('show.bs.modal', event => {
-      const button = event.relatedTarget
-      const NomeEspaco = button.getAttribute('data-NomeEspaco')
-      var SelectValue = document.getElementById("inputState").value
-      var informacoes = SelectValue.split(',')
-      var data = informacoes[0].split('-');
-      var data_completa = data[2] + "/" + data[1] + "/" + data[0];
+  const ModalConfirm = document.getElementById('ModalConfirm')
+  ModalConfirm.addEventListener('show.bs.modal', event => {
+    const button = event.relatedTarget
+    const NomeEspaco = button.getAttribute('data-NomeEspaco')
+    var SelectValue = document.getElementById("inputState").value
+    var informacoes = SelectValue.split(',')
+    var data = informacoes[0].split('-');
+    var data_completa = data[2] + "/" + data[1] + "/" + data[0];
 
 
-      var NumeroTotal = document.getElementById("numPessoas").value
-      if(NumeroTotal < 1) NumeroTotal = 1;
+    var NumeroTotal = document.getElementById("numPessoas").value
+    if(NumeroTotal < 1) NumeroTotal = 1;
 
-      const modalTitle = ModalConfirm.querySelector('.modal-title')
-      const modalBody = ModalConfirm.querySelector('.modal-body')
+    var Preco = <%=lugares.price%> * NumeroTotal;
 
-      modalBody.innerHTML = '<ul class="list-unstyled modal-reservar-info">\
-        <li><b>Nome:</b> ' + NomeEspaco + '</li> \
-        <li><b>Número total de Pessoas:</b> ' + NumeroTotal + '</li> \
-        <li><b>Data:</b> ' + data_completa + ' às ' + informacoes[1] + ':' + ((informacoes[2] < 10) ? ("0"+informacoes[2]):informacoes[2]) +' </li> \
-        <li><b>Preço:</b> R$ <%=lugares.price%>,00</li> \
-        <li><b>Vagas restantes:</b> ' + informacoes[3] + '</li></ul>';
+    const modalTitle = ModalConfirm.querySelector('.modal-title')
+    const modalBody = ModalConfirm.querySelector('.modal-body')
+
+    modalBody.innerHTML = '<ul class="list-unstyled modal-reservar-info">\
+      <li><b>Nome:</b> ' + NomeEspaco + '</li> \
+      <li><b>Número total de Pessoas:</b> ' + NumeroTotal + '</li> \
+      <li><b>Data:</b> ' + data_completa + ' às ' + informacoes[1] + ':' + ((informacoes[2] < 10) ? ("0"+informacoes[2]):informacoes[2]) +' </li> \
+      <li><b>Preço:</b> R$ ' + Preco + ',00</li> \
+      <li><b>Vagas restantes:</b> ' + informacoes[3] + '</li></ul>';
 
 
-      modalTitle.textContent = `Confimar reserva do espaço: ${NomeEspaco}?`
-    })
+    modalTitle.textContent = `Você deseja realmente efetuar a reserva?`
+  })
 
-		function convertFormToJSON(form) {
-			const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
-			const json = {};
-			$.each(array, function () {
-				json[this.name] = this.value || "";
-			});
-			return json;
-		}
-		$(document).ready(function () {
-			var request;
-			$('#reservarSubmit').click(function () {
-				$('#reservarEspaco').submit();
-			});
+  function convertFormToJSON(form) {
+    const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+    const json = {};
+    $.each(array, function () {
+      json[this.name] = this.value || "";
+    });
+    return json;
+  }
+  function updateValues(item) {
+    const itemData = document.getElementById("itemData");
+    const itemVagas = document.getElementById("itemVagas");
+    var informacoes = item.value.split(',');
+    var data = informacoes[0].split('-');
+    var data_completa = data[2] + "/" + data[1] + "/" + data[0];
 
-			$('#reservarEspaco').submit(function (event) {
-				// console.log(idUsu);
-				// var dados = $('#reservarEspaco').serialize();
-				// console.log(dados);
-				// var form = document.getElementById("reservarEspaco");
+    itemData.innerHTML = data_completa + ' às ' + informacoes[1] + ':' + ((informacoes[2] < 10) ? ("0"+informacoes[2]):informacoes[2]) ;
+    itemVagas.innerHTML = informacoes[3] ;
+  }
+  function updatePrices(item) {
+    const itemPreco = document.getElementById("itemPreco");
+    const NumeroTotal = item.value;
+    var Preco = <%=lugares.price%> * NumeroTotal;
+    if(NumeroTotal < 1) NumeroTotal = 1;
+    itemPreco.innerHTML = "R$ " + Preco + ",00";
+  }
+  $(document).ready(function () {
+    const inputState = document.getElementById("inputState");
+    updateValues(inputState)
+    const numPessoas = document.getElementById("numPessoas");
+    updatePrices(numPessoas)
 
-				event.preventDefault();
+    $('#inputState').change(function () {
+      updateValues(this)
+    });
 
-				// Abort any pending request
-				if (request) {
-					request.abort();
-				}
+    $('#numPessoas').change(function () {
+      updatePrices(this)
+    });
+    var request;
+    $('#reservarSubmit').click(function () {
+      $('#reservarEspaco').submit();
+    });
 
-				var $form = $(this);
-				const form_data = convertFormToJSON($form);
-				console.log(form_data);
-				console.log(JSON.stringify(form_data));
+    $('#reservarEspaco').submit(function (event) {
+      // console.log(idUsu);
+      // var dados = $('#reservarEspaco').serialize();
+      // console.log(dados);
+      // var form = document.getElementById("reservarEspaco");
 
-				$.ajax({
-					type: 'POST',
-					url: '<%=Url%>places/<%=lugares.id%>/reserve',
-					contentType: 'application/json',
-					data: JSON.stringify(form_data),
-					await: true,
-					dataType: 'json',
-					success: function (response) {
-						alert("Reserva feita com sucesso");
-						window.location.reload(true);
-						console.log(response);
-					},
-					error: function (response) {
-						alert("Falha ao fazer a reserva: " + response.responseJSON.error);
-						console.log(response);
-					}
-				});
-				return false;
-			});
-		});
-	</script>
-</main>
+      event.preventDefault();
+
+      // Abort any pending request
+      if (request) {
+        request.abort();
+      }
+
+      var $form = $(this);
+      const form_data = convertFormToJSON($form);
+      console.log(form_data);
+      console.log(JSON.stringify(form_data));
+
+      $.ajax({
+        type: 'POST',
+        url: '<%=Url%>places/<%=lugares.id%>/reserve',
+        contentType: 'application/json',
+        data: JSON.stringify(form_data),
+        await: true,
+        dataType: 'json',
+        success: function (response) {
+          alert("Reserva feita com sucesso");
+          window.location.reload(true);
+          console.log(response);
+        },
+
+        error: function (response) {
+          alert("Falha ao fazer a reserva: " + response.responseJSON.error);
+          console.log(response);
+          <% if(!sessao.loggedIn) { %> window.location.href = "<%=Url%>login"; <% } %>
+        }
+      });
+      return false;
+    });
+  });
+</script>
 <%- include includes/footer %>

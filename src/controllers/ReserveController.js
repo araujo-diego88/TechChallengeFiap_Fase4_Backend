@@ -8,7 +8,7 @@ class ReserveController{
 
   async index(req, res){
     if(!req.session.loggedIn) {
-      return res.status(400).json({ error: 'Precisa estar logado para fazer a reserva' });
+      return res.status(401).json({ error: 'Precisa estar logado para fazer a reserva' });
     }
     // const {user_id} = req.headers;
     const user_id = req.session.conta._id
@@ -22,7 +22,7 @@ class ReserveController{
   async store( req, res){
     
     if(!req.session.loggedIn) {
-      return res.status(400).json({ error: 'Precisa estar logado para fazer a reserva' });
+      return res.status(401).json({ error: 'Precisa estar logado para fazer a reserva' });
     }
     const { reserva, num_pessoas  } = req.body;
 
@@ -38,16 +38,16 @@ class ReserveController{
 
     const place = await Place.findById(place_id);
     if(!place){
-      return res.status(400).json({ error:'Essa local não existe!' });
+      return res.status(401).json({ error:'Essa local não existe!' });
     }
 
     if (vagas_restantes < 0) {
-      return res.status(400).json({ error: 'Solicitação indisponível, não há vagas suficientes para esse local.' });
+      return res.status(401).json({ error: 'Solicitação indisponível, não há vagas suficientes para esse local.' });
     }
 
     const user = await User.findById(user_id);
     if(String(user._id) === String(place.user)){
-      return res.status(400).json({ error: 'Reserva não permitida, usuário é dono do local!' });
+      return res.status(401).json({ error: 'Reserva não permitida, usuário é dono do local!' });
     }
 
     const reserve = await Reserve.create({//criação da reserva 
@@ -79,7 +79,7 @@ class ReserveController{
 
   async destroy(req, res){
     if(!req.session.loggedIn) {
-      return res.status(400).json({ error: 'Precisa estar logado para fazer a reserva' });
+      return res.status(401).json({ error: 'Precisa estar logado para fazer a reserva' });
     }
     // const{ reserve_id } = req.body;
     const { reserve_id } = req.params;
