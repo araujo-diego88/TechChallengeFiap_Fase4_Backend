@@ -18,6 +18,14 @@ class App{
 
     this.middlewares();
     this.routes();
+
+    this.server.use((req, res, next) => {
+      var sessao_feita = {conta: { username:"Nao logado" } }
+      if(req.session.loggedIn)
+          sessao_feita = req.session
+
+      res.render('404', { title: 'Shared Spaces | 404 - Não encontrado', bodyClass:"error-page", sessao:sessao_feita });
+    })
   }  
 
   middlewares() {
@@ -33,6 +41,7 @@ class App{
     this.server.use(cookieParser());
 
     this.server.use(express.urlencoded({ extended: false }));
+    
 
     this.server.use('/css', express.static(path.resolve(__dirname, 'public/stylesheets/css')));
     this.server.use('/css', express.static(path.resolve(__dirname,'..', 'node_modules/bootstrap/dist/css')));

@@ -15,6 +15,7 @@
   --btn-form-text-color_hover: #fff;
   --links-color: #e72166;
   --links-color-hover: #950739;
+  --engrenagem-404-color: #f3c623;
 
 }
 
@@ -435,4 +436,95 @@ a:hover.dropdown-toggle:not(.submenu)::after {
   width: var(--form-loading-size);
   height: var(--form-loading-size);
   color: var(--form-loading-color);
+}
+
+/* 404/401 Error */
+
+.main-404 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  align-items: center
+}
+
+.main-404 span {
+  font-size: 40vmin
+}
+
+.main-404 svg {
+  color: var(--engrenagem-404-color);
+  fill: var(--engrenagem-404-color);
+  max-height: 47vmin;
+  max-width: 47vmin;
+  margin: 0 -15px;
+  -webkit-animation: spin 8s linear infinite;
+  animation: spin 8s linear infinite
+}
+
+@-webkit-keyframes spin {
+  100% {
+      -webkit-transform: rotate(360deg)
+  }
+}
+
+@keyframes spin {
+  100% {
+      -webkit-transform: rotate(360deg);
+      transform: rotate(360deg)
+  }
+}
+
+.wrong-para {
+  font-weight: 500;
+  font-size: 24px;
+  -webkit-animation: pisca-texto 1.7s linear infinite;
+  animation: pisca-texto 1.7s linear infinite
+}
+
+@keyframes pisca-texto {
+  0% {
+      opacity: 0
+  }
+
+  10% {
+      opacity: .1
+  }
+
+  20% {
+      opacity: .3
+  }
+
+  30% {
+      opacity: .5
+  }
+
+  40% {
+      opacity: .9
+  }
+
+  50% {
+      opacity: 1
+  }
+
+  60% {
+      opacity: .9
+  }
+
+  70% {
+      opacity: .5
+  }
+
+  80% {
+      opacity: .3
+  }
+
+  90% {
+      opacity: .1
+  }
+
+  100% {
+      opacity: 0
+  }
 }
