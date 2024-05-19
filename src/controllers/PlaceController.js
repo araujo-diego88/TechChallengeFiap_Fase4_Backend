@@ -72,7 +72,7 @@ class PlaceController{
     var user_id = req.session.conta._id
 
     if(!(await schema.isValid(req.body))){
-      console.log(req.body)
+      // console.log(req.body)
       return res.status(400).json({ error: 'Falha na validação!' });
     }
 
@@ -134,8 +134,8 @@ class PlaceController{
     const isAdmin = req.session.conta.isAdmin
     
     const places = await Place.findById(id_place); 
-    console.log(id_place)
-    console.log(places)
+    // console.log(id_place)
+    // console.log(places)
 
     if(places.user != user_id && !isAdmin) {
       return res.status(401).json({ error: 'Usuário não autorizado!'});

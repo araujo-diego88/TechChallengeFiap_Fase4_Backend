@@ -1,8 +1,10 @@
 <%- include includes/header %>
-<div class="main-formulario-seo">
+<main class="py-5 px-2">
+  <div class="container px-3 px-md-5 py-4 bg-white rounded rounded-3 shadow">
      <h2>Gerenciar Espaço</h2>
-     <p>Prencha as informações abaixo</p>
-     <div class="container p-3" id="FormUpdateEspacoDiv">
+     <p class="mb-5">Prencha as informações abaixo</p>
+
+     <div id="FormUpdateEspacoDiv">
          <div id="loader" class="text-center">
              <div class="spinner-border" role="status">
                  <span class="visually-hidden">Carregando...</span>
@@ -11,197 +13,196 @@
  
          <div id="response_notification"></div>
  
-         <form id="FormUpdateEspaco" class="row g-3 text-center justify-content-center" enctype="multipart/form-data" method="post" action="#FormUpdateEspacoDiv">
-             <div class="col-12">
-                 <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" aria-required="true" value="<%=lugar.nome%>">
-             </div> 
-             <div class="col-12">
-                 <input name="description" type="text" class="form-control" id="formDesc" placeholder="Descrição*" value="<%=lugar.description%>"  aria-required="true">
-             </div> 
-             <div class="col-12">
-                 <textarea name="descricao_longa" type="text" class="form-control" id="formLongDesc" placeholder="Descrição Longa*" aria-required="true" rows="5"><%=lugar.descricao_longa%></textarea>
-            </div> 
-            <div class="col-12">
-                <input name="price" type="number" class="form-control" id="formPrice" placeholder="Preço*" aria-required="true" value="<%=lugar.price%>">
-            </div> 
-            <div class="col-12">
-                <input name="location" type="text" class="form-control" id="formLocation" placeholder="Endereço*" value="<%=lugar.location%>"  aria-required="true">
-            </div> 
-
-            <% 
-              count = 0;
-              lugar.datas_disponiveis.forEach(datas => { 
-              if(datas != null) {
-            %>
-              
-
-            <% if(count == 0 ) { %> 
-              <div class="col-12 d-flex flex-wrap clone linha_data"> 
-            <% } else { %>
-              <div class="col-12 d-flex flex-wrap linha_data"> 
-            <% } %>
-                <div class="col-10 pe-2">
-                  <input name="datas_disponiveis[<%=count%>]" type="date" class="form-control" id="formDate[<%=count%>]" placeholder="Data Disponivel*" value="<%=datas%>"  aria-required="true">
-                </div>
-                <div class="col-2">
-                  <button type="button" title="remover" class="btn button-remove btn-danger col-md-12">
-                    <i class="fas fa-remove"></i>
-                  </button>
-                </div>
-              </div>
-            <% 
-              count++; }});
-            %>
-
-            <div class="row">&nbsp;</div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <button type="button" class="btn button-more btn-success pull-right">
-                    <i class="fas fa-plus-circle"></i> Mais
-                    </button>
-                </div>
+         <form id="FormUpdateEspaco" class="row g-3 justify-content-center" enctype="multipart/form-data" method="post" action="#FormUpdateEspacoDiv">
+          <div class="col-12">
+            <label for="formImage" class="form-label">Status:</label>
+            <div class="form-check">
+              <label class="form-check-label" for="flexCheckStatus" id="lblEspacoAtivo">Espaço Ativado</label>
+              <input class="form-check-input" name='status' type="checkbox" id="flexCheckStatus" <%=(lugar.status) ? 'checked' : ''%>>
             </div>
-
-
-            <div class="col-12">
-              <div class="form-check">
-                <% if(lugar.status) { %>
-                  <input class="form-check-input" name='status' type="checkbox" id="flexCheckStatus" checked>
-                <% } else { %>
-                  <input class="form-check-input" name='status' type="checkbox" id="flexCheckStatus">
-                <% } %>
-                <label class="form-check-label" for="flexCheckStatus">
-                  Ativado (<%=lugar.status%>)
-                </label>
-              </div>
-            </div>
-            <div class="col-12">
+          </div>
+          <div class="col-12">
+            <label for="formImage" class="form-label">Imagem*:</label>
             <input class="form-control" type="file" id="formImage" name="thumbnail">
+          </div>   
+          <div class="col-12">
+            <label for="formName" class="form-label">Nome*:</label>     
+            <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" aria-required="true" value="<%=lugar.nome%>">
+          </div> 
+          <div class="col-12">
+            <label for="formDesc" class="form-label">Descrição curta*:</label>   
+            <input name="description" type="text" class="form-control" id="formDesc" placeholder="Descrição*" value="<%=lugar.description%>"  aria-required="true">
+          </div> 
+          <div class="col-12">
+            <label for="formLongDesc" class="form-label">Descrição longa*:</label>   
+            <textarea name="descricao_longa" type="text" class="form-control" id="formLongDesc" placeholder="Descrição Longa*" aria-required="true" rows="5"><%=lugar.descricao_longa%></textarea>
+          </div> 
+          <div class="col-12">
+            <label for="formPrice" class="form-label">Preço*:</label>  
+            <input name="price" type="number" class="form-control" id="formPrice" placeholder="Preço*" aria-required="true" value="<%=lugar.price%>">
+          </div> 
+          <div class="col-12">
+            <label for="formLocation" class="form-label">Endereço*:</label>  
+            <input name="location" type="text" class="form-control" id="formLocation" placeholder="Endereço*" value="<%=lugar.location%>"  aria-required="true">
+          </div> 
+
+          <div class="col-12">
+            <label for="formDatas" class="form-label">Datas disponiveis*:</label>
+            <div class="d-flex flex-wrap gap-5 gap-md-2">
+              
+              <% 
+                count = 0;
+                lugar.datas_disponiveis.forEach(datas => {
+                if(datas != null) {
+              %>
+              <div class="col-12 row g-3 linha_data">
+                <div class="col-12 col-md-4">
+                    <input name="datas_disponiveis[<%=count%>][0]" type="date" class="form-control" id="formDate[<%=count%>][0]" value="<%=datas[0]%>" placeholder="Dia*" required  aria-required="true">
+                </div>
+                <div class="col-12 col-md-4 d-flex align-items-center gap-2">
+                    <input name="datas_disponiveis[<%=count%>][1]" type="number" min="0" max="23" class="form-control" id="formDate[<%=count%>][1]" value="<%=datas[1]%>" placeholder="Hora*" required  aria-required="true">
+                    <span>:</span>
+                    <input name="datas_disponiveis[<%=count%>][2]" type="number" min="0" max="60" class="form-control" id="formDate[<%=count%>][2]" value="<%=datas[2]%>" placeholder="Minuto*" required  aria-required="true">
+                </div>
+                <div class="col-12 col-md-2">
+                    <input name="datas_disponiveis[<%=count%>][3]" type="number" class="form-control" id="formDate[<%=count%>][3]" placeholder="Vagas*" value="<%=datas[3]%>" required  aria-required="true">
+                </div>
+                <div class="col-12 col-md-2">
+                  <button type="button" title="remover" class="btn removerCampo btn-danger <%=(count <= 0) ? 'd-none' : '' %>">Excluir linha<i class="fas fa-remove ms-2"></i></button>
+                </div>
+              </div>
+              <% 
+                count++; }});
+              %>
             </div>
-            <div class="col-12">
-                <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Enviar</button>
-            </div>
-         </form>
-     </div>
- </div>
+          </div>
+          <div class="col-12 text-start mt-5 mt-md-3">
+              <button type="button" class="btn adicionarCampo btn-success pull-right"><i class="fas fa-plus-circle me-2"></i>Adicionar mais datas</button>
+          </div>
+          
+          <div class="col-12 mt-5">
+              <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-rotate"></i>Atualizar espaço</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</main>
+
 
 <script>
-    var nrQtdProduto = 1;
-    // var nrQtdProdutoRep = 0;
-$(function() 
-{
+var nrQtdProduto = <%=count%>;
+$(function () {
+  function removeCampo() {
+  $(".removerCampo").click(function () {
+      if($("div.linha_data").length > 1){
+        $(this).find("input").val("");
+        $(this).parent().parent().remove();
+        nrQtdProduto--;
+      }
+    });
+  }
+ 
+  $(".adicionarCampo").click(function () {
+    novoCampo = $("div.linha_data:first").clone();
+    novoCampo.find("input").val("");
+    novoCampo.find('input').each(function(k, v) {
+      var strName = $(v).attr('name');
+      var strId = $(v).attr('id');
 
-  $('.button-more').click(function() {
-    var $objDivProduto = $(this).parent().parent().parent().children('.clone');
-    nrQtdProduto = $(this).parent().parent().parent().children('.linha_data').length;
-    // nrQtdProdutoRep = nrQtdProduto-1
+      $(this)
+        .attr('name', strName.replace('[0]', '['+ nrQtdProduto + ']'))
+        .attr('id', strId.replace('[0]', '['+ nrQtdProduto + ']'));
 
-    $objDivProduto
-      .clone()
-      .removeClass('clone')
-      .find('input').each(function(k, v) {
-        var strName = $(v).attr('name');
-        var strId = $(v).attr('id');
+      if ($(this).attr('type') != 'hidden') {
+        $(this).val('');
+      }
 
-        $(this)
-          .attr('name', strName.replace('[0]', '['+ nrQtdProduto + ']'))
-          .attr('id', strId.replace('[0]', '['+ nrQtdProduto + ']'));
-
-        if ($(this).attr('type') != 'hidden') {
-          $(this).val('');
-        }
-
-      })
-      .end()
-      .insertAfter($objDivProduto);
+    })
+    novoCampo.find('button').removeClass('d-none')
+    novoCampo.insertAfter("div.linha_data:last");
+    nrQtdProduto++
+    removeCampo();
   });
 
-});
-
-
-$('.button-remove').click(function() {
-
-nrQtdProduto = $(this).parent().parent().parent().children('.linha_data').length ;
-
-if (nrQtdProduto == 1) {
-  alert('Erro - Você deve ter ao menos um campo para cadastro.');
-  return;
-}
-
-if (confirm('Deseja realmente remover a linha ?')) {
-  var objRemove = $(this).parent().parent();
-  objRemove.remove();
-}
+  removeCampo();
 });
 
 
 
-</script>
+  function convertFormToJSON(form) {
+      const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+      const json = {};
+      $.each(array, function () {
+          json[this.name] = this.value || "";
+      });
+      return json;
+  }
+  function updateStatus(item) {
+    const lblEspacoAtivo = document.getElementById("lblEspacoAtivo");
+    const CheckedItem = item.checked;
+    lblEspacoAtivo.innerHTML = CheckedItem ? "Espaço Ativado" : "Espaço desativado";
+  }
 
-<script>
+  $(document).ready(function() {
+      var ckStatus = document.getElementById('flexCheckStatus')
+      updateStatus(ckStatus)
 
-    function convertFormToJSON(form) {
-        const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
-        const json = {};
-        $.each(array, function () {
-            json[this.name] = this.value || "";
-        });
-        return json;
-    }
+      $('#flexCheckStatus').change(function () {
+        updateStatus(this)
+      });
 
-     $(document).ready(function() {
-          var request;
 
-          $('#FormUpdateEspaco').submit(function (event) {
-              // Prevent default posting of form - put here to work in case of errors
-              event.preventDefault();
+      var request;
 
-              // Abort any pending request
-              if (request) {
-                   request.abort();
-              }
+      $('#FormUpdateEspaco').submit(function (event) {
+          // Prevent default posting of form - put here to work in case of errors
+          event.preventDefault();
 
-              var $form = $(this);
-              var today = new Date();
-              var dd = String(today.getDate()).padStart(2, '0');
-              var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-              var yyyy = today.getFullYear();
+          // Abort any pending request
+          if (request) {
+                request.abort();
+          }
 
-              today = yyyy + '-' + mm + '-' + dd
+          var $form = $(this);
+          var today = new Date();
+          var dd = String(today.getDate()).padStart(2, '0');
+          var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+          var yyyy = today.getFullYear();
 
-              var formData = new FormData(this);
-              console.log(formData);
+          today = yyyy + '-' + mm + '-' + dd
 
-              $.ajax({
-                   type: 'POST',
-                   url: '<%=Url%>places/<%=id_lugar%>',
-                   // contentType: 'multipart/form-data; boundary=0258866893',
-                   contentType: false,
-                   // contentType: 'application/json',
-                   processData: false,
+          var formData = new FormData(this);
+          // console.log(formData);
 
-                   data: formData,
-                   // await: true,
-                   // dataType: 'json',
-                   beforeSend: function () {
-                        $("#FormUpdateEspaco").css("opacity", 0.6);
-                        $('#loader').show();
-                   },
-                   success: function(response) {
-                        $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Espaço atualizado com sucesso</div>');
-                   },
-                   error: function(response) {
-                        $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
-                        console.log(response);
-                   },          
-                   complete: function () {
-                        $('#loader').hide();
-                        $("#FormUpdateEspaco").css("opacity", 1);
-                        $('.alert').fadeIn('slow');
-                   }
-              });
+          $.ajax({
+                type: 'POST',
+                url: '<%=Url%>places/<%=id_lugar%>',
+                // contentType: 'multipart/form-data; boundary=0258866893',
+                contentType: false,
+                // contentType: 'application/json',
+                processData: false,
+
+                data: formData,
+                // await: true,
+                // dataType: 'json',
+                beforeSend: function () {
+                    $("#FormUpdateEspaco").css("opacity", 0.6);
+                    $('#loader').show();
+                },
+                success: function(response) {
+                    $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Espaço atualizado com sucesso</div>');
+                },
+                error: function(response) {
+                    $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
+                    // console.log(response);
+                },          
+                complete: function () {
+                    $('#loader').hide();
+                    $("#FormUpdateEspaco").css("opacity", 1);
+                    $('.alert').fadeIn('slow');
+                }
           });
-     });
-
+      });
+  });
 </script>
 <%- include includes/footer %>

@@ -55,12 +55,14 @@ routes.get('/cadastrar', async function(req, res) {
     res.render('cadastrar', { title: 'Shared Spaces | Cadastrar', bodyClass:"login-page", sessao:sessao_feita });
 });
 routes.get('/login', function(req, res, next) {
-    if(req.session.loggedIn)
+    if(req.session.loggedIn) {
         sessao_feita = req.session
-    else
+        res.redirect('/minha-conta')
+    }
+    else {
         sessao_feita = {conta: { username:"Nao logado" } }
-    
-    res.render('login', { title: 'Shared Spaces | Login', bodyClass:"login-page", sessao:sessao_feita });
+        res.render('login', { title: 'Shared Spaces | Login', bodyClass:"login-page", sessao:sessao_feita });
+    }
 });
 
 routes.get('/logout', async function(req, res, next) {

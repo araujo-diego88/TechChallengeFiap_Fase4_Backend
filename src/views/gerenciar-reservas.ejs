@@ -59,11 +59,11 @@ $(document).ready(function() {
         success: function(response) {
           alert("Reserva cancelada com sucesso");
           window.location.reload(true);
-          console.log(response);
+          // console.log(response);
         },
         error: function(response) {
           alert("Falha ao cancelar: " + response.responseJSON.error);
-          console.log(response);
+          // console.log(response);
         }
       });
       return false;

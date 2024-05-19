@@ -198,8 +198,8 @@
 
       var $form = $(this);
       const form_data = convertFormToJSON($form);
-      console.log(form_data);
-      console.log(JSON.stringify(form_data));
+      // console.log(form_data);
+      // console.log(JSON.stringify(form_data));
 
       $.ajax({
         type: 'POST',
@@ -211,12 +211,12 @@
         success: function (response) {
           alert("Reserva feita com sucesso");
           window.location.reload(true);
-          console.log(response);
+          // console.log(response);
         },
 
         error: function (response) {
           alert("Falha ao fazer a reserva: " + response.responseJSON.error);
-          console.log(response);
+          // console.log(response);
           <% if(!sessao.loggedIn) { %> window.location.href = "<%=Url%>login"; <% } %>
         }
       });

@@ -1,33 +1,34 @@
 <%- include includes/header %>
 <main class="container py-5">
-    <div class="row">
-        <div class="d-flex align-itens-center col-6">
-            <i class="fa-solid fa-circle-user" style="font-size: 320px;"></i>
+    <div class="container px-3 px-md-5 py-5 bg-white rounded rounded-3 shadow">
+        <div class="row">
+            <div class="d-flex flex-wrap align-itens-center col-12 col-md-6 gap-3">
+                <div class="col-12 text-center"><i class="fa-solid fa-circle-user" style="font-size: 25vw;"></i></div>
+                <div class="col-12 h3 text-center"><%=sessao.conta.nome%></div>
+            </div>
+            <div class="col-12 col-md-6 d-flex flex-column justify-content-center mt-5 mt-md-0">
+                <h1>Minha conta:</h1>
+
+                <p>Bem vindo <strong><%=sessao.conta.nome%></strong>, o que você deseja fazer</p>
+                <ul class="list-unstyled">
+                    <li><a href="<%=Url%>alterar-dados"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Alterar dados cadastrais</a></li>
+                    <li><a href="<%=Url%>registrar-espaco"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Registrar um espaço</a></li>
+                    <li><a href="<%=Url%>gerenciar-espacos"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar meus espaços</a></li>
+                    <li><a href="<%=Url%>gerenciar-reservas"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar minhas reservas</a></li>
+                    <li><a href="<%=Url%>logout"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Sair da conta</a></li>
+                </ul>
+
+                <% if(sessao.conta.isAdmin) { %>
+                <h1>ADMIN:</h1>
+
+                <p>Parabens parece que voce possui todos os privilégios</p>
+                <ul class="list-unstyled">
+                    <li><a href="<%=Url%>adm-gerenciar-espacos"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar todos os espaços</a></li>
+                </ul>
+                <% } %>
+
+            </div>           
         </div>
-        <div class="col-6 d-flex flex-column justify-content-center">
-            <h1>Minha conta:</h1>
-
-            <p>Bem vindo <strong><%=sessao.conta.nome%></strong>, o que você deseja fazer</p>
-            <ul class="list-unstyled">
-                <li><a href="<%=Url%>alterar-dados"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Alterar dados cadastrais</a></li>
-                <li><a href="<%=Url%>registrar-espaco"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Registrar um espaço</a></li>
-                <li><a href="<%=Url%>gerenciar-espacos"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar meus espaços</a></li>
-                <li><a href="<%=Url%>gerenciar-reservas"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar minhas reservas</a></li>
-                <li><a href="<%=Url%>logout"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Sair da conta</a></li>
-            </ul>
-
-            <% if(sessao.conta.isAdmin) { %>
-            <h1>ADMIN:</h1>
-
-            <p>Parabens parece que voce possui todos os privilegios</p>
-            <ul class="list-unstyled">
-                <li><a href="<%=Url%>adm-gerenciar-espacos"><i class="fas fa-angles-right me-2 text-dark" style="font-size: 8px;"></i>Gerenciar todos os espaços</a></li>
-            </ul>
-            <% } %>
-
-        </div>
-
-        
     </div>
 </main>
 <%- include includes/footer %>

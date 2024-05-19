@@ -26,6 +26,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: contain;
+  word-break: break-word;
   
 }
 main {

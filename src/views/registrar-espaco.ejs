@@ -1,8 +1,9 @@
 <%- include includes/header %>
-<div class="main-formulario-seo">
+<main class="py-5 px-2">
+  <div class="container px-3 px-md-5 py-4 bg-white rounded rounded-3 shadow">
      <h2>Registrar Espaço</h2>
-     <p>Prencha as informações abaixo</p>
-     <div class="container p-3" id="FormRegEspacoDiv">
+     <p class="mb-5">Prencha as informações abaixo</p>
+     <div id="FormRegEspacoDiv">
          <div id="loader" class="text-center">
              <div class="spinner-border" role="status">
                 <span class="visually-hidden">Carregando...</span>
@@ -11,118 +12,106 @@
  
          <div id="response_notification"></div>
  
-         <form id="FormRegEspaco" class="row g-3 text-center justify-content-center" enctype="multipart/form-data" method="post" action="#FormRegEspacoDiv">
+         <form id="FormRegEspaco" class="row g-3 justify-content-center" enctype="multipart/form-data" method="post" action="#FormRegEspacoDiv">
+            <div class="col-12">
+                <label for="formImage" class="form-label">Imagem*:</label>
+                <input class="form-control" type="file" id="formImage" name="thumbnail" required>
+            </div>
              <div class="col-12">
+                <label for="formName" class="form-label">Nome*:</label>
                 <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" required  aria-required="true">
              </div> 
              <div class="col-12">
+                <label for="formDesc" class="form-label">Descrição curta*:</label>
                 <input name="description" type="text" class="form-control" id="formDesc" placeholder="Descrição*" required  aria-required="true">
              </div> 
              <div class="col-12">
+                <label for="formLongDesc" class="form-label">Descrição longa*:</label>
                 <textarea name="descricao_longa" type="text" class="form-control" id="formLongDesc" placeholder="Descrição Longa*" required  aria-required="true" rows="5"></textarea>
             </div> 
             <div class="col-12">
+               <label for="formPrice" class="form-label">Preço*:</label>
                <input name="price" type="number" class="form-control" id="formPrice" placeholder="Preço*" required  aria-required="true">
             </div> 
             <div class="col-12">
-               <input name="location" type="text" class="form-control" id="formLocation" placeholder="Endereço*" required  aria-required="true">
+                <label for="formLocation" class="form-label">Endereço*:</label>
+                <input name="location" type="text" class="form-control" id="formLocation" placeholder="Endereço*" required  aria-required="true">
             </div> 
 
-            <div class="col-12 d-flex flex-wrap clone linha_data">
-               <div class="col-4 pe-2">
-                   <input name="datas_disponiveis[0][0]" type="date" class="form-control" id="formDate[0][0]" placeholder="Dia*" required  aria-required="true">
-               </div>
-               <div class="col-2 pe-2">
-                   <input name="datas_disponiveis[0][1]" type="number" min="0" max="23" class="form-control" id="formDate[0][1]" placeholder="Hora*" required  aria-required="true">
-               </div>
-               <div class="col-2 pe-2">
-                   <input name="datas_disponiveis[0][2]" type="number" min="0" max="60" class="form-control" id="formDate[0][2]" placeholder="Minuto*" required  aria-required="true">
-               </div>
-               <div class="col-2 pe-2">
-                   <input name="datas_disponiveis[0][3]" type="number" class="form-control" id="formDate[0][3]" placeholder="Vagas*" required  aria-required="true">
-               </div>
-
-
-               <div class="col-2">
-                 <button type="button" title="remover" class="btn button-remove btn-danger">
-                  Excluir linha <i class="fas fa-remove"></i>
-                 </button>
-               </div>
-
-            </div>
-            <div class="row">&nbsp;</div>
-            <div class="row">
-               <div class="col-12 text-start">
-                   <button type="button" class="btn button-more btn-success pull-right">
-                   <i class="fas fa-plus-circle"></i> Mais
-                   </button>
-               </div>
-            </div>
-
-
             <div class="col-12">
-            <input class="form-control" type="file" id="formImage" name="thumbnail" required>
+              <label for="formDatas" class="form-label">Datas disponiveis*:</label>
+              <div class="d-flex flex-wrap gap-5 gap-md-2">
+                <div class="col-12 row g-3 linha_data">
+                  <div class="col-12 col-md-4">
+                      <input name="datas_disponiveis[0][0]" type="date" class="form-control" id="formDate[0][0]" placeholder="Dia*" required  aria-required="true">
+                  </div>
+                  <div class="col-12 col-md-4 d-flex align-items-center gap-2">
+                      <input name="datas_disponiveis[0][1]" type="number" min="0" max="23" class="form-control" id="formDate[0][1]" placeholder="Hora*" required  aria-required="true">
+                      <span>:</span>
+                      <input name="datas_disponiveis[0][2]" type="number" min="0" max="60" class="form-control" id="formDate[0][2]" placeholder="Minuto*" required  aria-required="true">
+                  </div>
+                  <div class="col-12 col-md-2">
+                      <input name="datas_disponiveis[0][3]" type="number" class="form-control" id="formDate[0][3]" placeholder="Vagas*" required  aria-required="true">
+                  </div>
+                  <div class="col-12 col-md-2">
+                    <button type="button" title="remover" class="btn removerCampo btn-danger d-none">Excluir linha <i class="fas fa-remove"></i></button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="col-12">
-               <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Enviar</button>
+            <div class="col-12 text-start mt-5 mt-md-3">
+              <button type="button" class="btn adicionarCampo btn-success pull-right"><i class="fas fa-plus-circle me-2"></i>Adicionar mais datas</button>
             </div>
+
+
+            
+            <div class="col-12 mt-5 d-flex flex-wrap gap-2">
+              <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Registrar Espaço</button>
+              <button type="reset" class="btn_formulario limpar d-inline-flex align-items-center gap-2"><i class="fa-solid fa-broom"></i>Limpar Formulario</button>
+           </div>
          </form>
      </div>
- </div>
+  </div>
+ </main>
+
+
 
 <script>
-  var nrQtdProduto = 1;
-  // var nrQtdProdutoRep = 0;
-  $(function() {
-
-    $('.button-more').click(function () {
-      var $objDivProduto = $(this).parent().parent().parent().children('.clone');
-      nrQtdProduto = $(this).parent().parent().parent().children('.linha_data').length;
-      // nrQtdProdutoRep = nrQtdProduto-1
-
-      $objDivProduto
-        .clone()
-        .removeClass('clone')
-        .find('input').each(function (k, v) {
-          var strName = $(v).attr('name');
-          var strId = $(v).attr('id');
-
-          $(this)
-            .attr('name', strName.replace('datas_disponiveis[0]', 'datas_disponiveis[' + nrQtdProduto + ']'))
-            .attr('id', strId.replace('formDate[0]', 'formDate[' + nrQtdProduto + ']'));
-          
-
-
-          //   console.log(nrQtdProdutoRep)
-          // console.log(nrQtdProduto)
-
-          if ($(this).attr('type') != 'hidden') {
-            $(this).val('');
-          }
-
-        })
-      
-        .end()
-        .insertAfter($objDivProduto);
-
+var nrQtdProduto = 1;
+$(function () {
+  function removeCampo() {
+  $(".removerCampo").click(function () {
+      if($("div.linha_data").length > 1){
+        $(this).find("input").val("");
+        $(this).parent().parent().remove();
+        nrQtdProduto--;
+      }
     });
-
-});
-
-
-  $('.button-remove').click(function() {
-
-  nrQtdProduto = $(this).parent().parent().parent().children('.linha_data').length;
-
-  if (nrQtdProduto == 1) {
-    showAlert('Erro', 'Você deve ter ao menos um campo para cadastro.');
-    return;
   }
+ 
+  $(".adicionarCampo").click(function () {
+    novoCampo = $("div.linha_data:first").clone();
+    novoCampo.find("input").val("");
+    novoCampo.find('input').each(function(k, v) {
+      var strName = $(v).attr('name');
+      var strId = $(v).attr('id');
 
-  if (confirm('Deseja realmente remover a linha ?')) {
-    var objRemove = $(this).parent().parent();
-    objRemove.remove();
-  }
+      $(this)
+        .attr('name', strName.replace('[0]', '['+ nrQtdProduto + ']'))
+        .attr('id', strId.replace('[0]', '['+ nrQtdProduto + ']'));
+
+      if ($(this).attr('type') != 'hidden') {
+        $(this).val('');
+      }
+
+    })
+    novoCampo.find('button').removeClass('d-none')
+    novoCampo.insertAfter("div.linha_data:last");
+    nrQtdProduto++
+    removeCampo();
+  });
+
+  removeCampo();
 });
 
 function convertFormToJSON(form) {
@@ -135,6 +124,7 @@ function convertFormToJSON(form) {
 }
 
 $(document).ready(function() {
+
     var request;
 
     $('#FormRegEspaco').submit(function (event) {

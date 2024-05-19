@@ -110,8 +110,8 @@ class SessionController{
     const { nome, data_nascimento, email, password } = req.body;
     const { user_id } = req.params;
 
-    console.log(req.body)
-    console.log(user_id)
+    // console.log(req.body)
+    // console.log(user_id)
 
     // Criptografia da senha
     
@@ -139,6 +139,10 @@ class SessionController{
         email,
       });
     }
+
+    req.session.conta.nome = nome;
+    req.session.conta.email = email;
+    req.session.conta.data_nascimento = data_nascimento;
 
     return res.status(200).json({ sucess: 'Dados alterados com sucesso!' });
   }

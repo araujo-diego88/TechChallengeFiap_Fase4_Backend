@@ -51,7 +51,7 @@ class App{
     }));
     
 
-    console.log(__dirname);
+    // console.log(__dirname);
 
     this.server.set('trust proxy', 1); // Trust first proxy
     this.server.use(express.json());

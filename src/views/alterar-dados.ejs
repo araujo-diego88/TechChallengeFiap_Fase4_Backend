@@ -1,7 +1,8 @@
 <%- include includes/header %>
-<div class="main-formulario-seo">
+<main class="py-5 px-2">
+<div class="container px-3 px-md-5 py-4 bg-white rounded rounded-3 shadow">
      <h2>Atualizar conta</h2>
-     <p>Prencha as informações abaixo</p>
+     <p class="mb-5">Prencha as informações abaixo</p>
      <div class="container p-3" id="formUpdateContaDiv">
          <div id="loader" class="text-center">
              <div class="spinner-border" role="status">
@@ -11,27 +12,32 @@
  
          <div id="response_notification"></div>
  
-         <form id="formUpdateConta" class="row g-3 text-center justify-content-center" method="post" action="#formUpdateContaDiv">
+         <form id="formUpdateConta" class="row g-3 justify-content-center" method="post" action="#formUpdateContaDiv">
              <div class="col-12 col-md-6">
-                 <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" value="<%=sessao.conta.nome%>"  required  aria-required="true">
+                <label for="formName" class="form-label">Nome*:</label>
+                <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" value="<%=sessao.conta.nome%>"  required  aria-required="true">
              </div> 
              <div class="col-12 col-md-6">
-                 <input name="email" type="email" class="form-control" id="formEmail" placeholder="E-mail*" value="<%=sessao.conta.email%>" required  aria-required="true">
+                <label for="formDate" class="form-label">Data Nascimento*:</label>
+                <input name="email" type="email" class="form-control" id="formEmail" placeholder="E-mail*" value="<%=sessao.conta.email%>" required  aria-required="true">
              </div> 
              <div class="col-12 col-md-6">
-                 <input name="data_nascimento" type="date" class="form-control" id="formDate" placeholder="Data Nascimento*" value="<%=sessao.conta.data_nascimento%>" required  aria-required="true">
+                <label for="formEmail" class="form-label">E-mail*:</label>
+                <input name="data_nascimento" type="date" class="form-control" id="formDate" placeholder="Data Nascimento*" value="<%=sessao.conta.data_nascimento%>" required  aria-required="true">
              </div> 
              <div class="col-12 col-md-6">
-                 <input name="password" type="password" class="form-control" id="formPassword" placeholder="Nova Senha*" aria-required="true">
+                <label for="formPassword" class="form-label">Senha*:</label>
+                <input name="password" type="password" class="form-control" id="formPassword" placeholder="Nova Senha*" aria-required="true">
              </div> 
-             <div class="col-12">
-                 <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Enviar</button>
+             <div class="col-12 mt-5 d-flex flex-wrap gap-2">
+                <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-rotate"></i>Atualizar cadastro</button>
+                <!-- <button type="reset" class="btn_formulario limpar d-inline-flex align-items-center gap-2"><i class="fa-solid fa-broom"></i>Limpar Formulario</button> -->
              </div>
          </form>
      </div>
  </div>
 
-
+</main>
 
 <script>
 
@@ -67,11 +73,11 @@
 
                const form_data = convertFormToJSON($form);
             //    form_data.data_cadastro = today;
-               console.log(form_data);
+            //    console.log(form_data);
 
                 //    var serializeDataArray = $form.serialize();
                 //    serializeDataArray += "&data_cadastro=" + today;
-               console.log(JSON.stringify(form_data));
+            //    console.log(JSON.stringify(form_data));
 
                $.ajax({
                     type: 'POST',
@@ -91,7 +97,7 @@
                     },
                     error: function(response) {
                          $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
-                         console.log(response);
+                        //  console.log(response);
                     },          
                     complete: function () {
                          $('#loader').hide();
