@@ -45,6 +45,18 @@ routes.get(`/`, async function (req, res, next) {
     res.render('index', { title: 'Shared Spaces | Reserve seu espaço', bodyClass:"homepage", lugares:json, sessao:sessao_feita });
 });
 
+// Sobre
+routes.get(`/sobre`, async function (req, res, next) {   
+    if(req.session.loggedIn)
+        sessao_feita = req.session
+    else
+        sessao_feita = {conta: { username:"Nao logado" } }
+
+    // console.log(req.session._id)
+
+    res.render('sobre', { title: 'Shared Spaces | Sobre', bodyClass:"page-sobre", sessao:sessao_feita });
+});
+
 // Cadastro e Login
 routes.get('/cadastrar', async function(req, res) {
     if(req.session.loggedIn)

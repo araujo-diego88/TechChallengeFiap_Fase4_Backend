@@ -1,0 +1,51 @@
+<%- include includes/header %>
+<main class="py-5 px-2">
+    <div class="container px-3 px-md-5 py-5 bg-white rounded rounded-3 shadow pagina-sobre">
+        <div class="d-flex align-items-center flex-column mb-5">
+            <h1>Sobre</h1>
+            <hr class="linha">
+        </div>
+
+        <div class="row g-5">
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <img src="<%=Logotipo%>" class="logo-sobre" alt="<%=NomeEmpresa%>" title="<%=NomeEmpresa%>" width="430" height="118">
+            </div>
+            <div class="col-12 col-md-6">
+                <h2>Escopo</h2>
+                <hr class="linha">
+                <p>Somos uma empresa que disponibiliza espaços compartilhados como salas de reunião, quadras esportivas e salões de festa para locação por seus membros, que podem reservar os espaços para realização de eventos pessoais e profissionais. Todavia, atualmente o processo de reservas é realizado por sistemas manuais e de baixa tecnologia, o que leva a conflitos de agendamento, má utilização de recursos e a insatisfação geral entre os usuários.</p>
+                
+                <p>A solução proposta foi a criação do Sistema de Reservas Online simplificado, que permitirá aos usuários consultar os espaços disponíveis, reservar horários, e gerir suas reservas, tudo por meio de um sistema online unificado e eficiente, que apresente uma interface amígavel e fácil de manusear.</p>
+            </div>
+            <div class="col-12">
+                <h2>Analise e desenvolvimento</h2>
+                <hr class="linha">
+                <p>Diante das funcionalidades exigidas pelo projeto, optou-se pelo desenvolvimento do Sistema de Reservas Online como um aplicativo web, modelado na arquitetura MVC (Model – View – Controller).</p>
+
+                <p>O back-end do aplicativo foi desenvolvido por meio do Express.js, framework para desenvolvimento web do Node.js., que fornece todas as ferramentas necessárias para roteamento e conexão com o banco de dados. A interface do usuário também foi construída com auxílio de um framework, o Bootstrap, para gerar páginas web com HTML e CSS que são responsivas e atraentes. Por fim, o MongoDB foi escolhido como o database para armazenar os dados do sistema, pela sua habilidade de receber e processar informações por meio de requisições HTTP.</p>
+
+                <p>Desta forma, todos os componentes do front e do back-end do aplicativo podem funcionar de forma integrada, servindo informações aos usuários em tempo real por meio da internet.</p>
+            </div>
+
+            <div class="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <img src="<%=Url%>images/logo-fiap.svg" class="logo-fiap-sobre" alt="FIAP" title="FIAP" width="350" height="95">
+            </div>
+            <div class="col-12 col-md-6">
+                <h2>Repositório e versão</h2>
+                <hr class="linha">
+                <p>O repositório contendo o código-fonte do projeto está salvo no GitHub, e pode ser acessado através do link: <a href="https://github.com/araujo-diego88/TechChallengeFiap_Fase4_Backend.git" target="_blank">https://github.com/araujo-diego88/TechChallengeFiap_Fase4_Backend.git</a></p>
+
+                <h2 class="mt-5">Autores</h2>
+                <hr class="linha">
+                <ul>
+                    <li>Diego Teixeira de Araujo</li>
+                    <li>Felipe Bolivar São Clemente</li>
+                    <li>Miguel Luiz Capristano</li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+<%- include includes/footer %>

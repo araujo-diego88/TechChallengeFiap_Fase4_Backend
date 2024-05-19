@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@400;500;600;700&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@400;500;600;700;800;900&display=swap);
 
 /* Geral */
 :root {
@@ -527,4 +527,41 @@ a:hover.dropdown-toggle:not(.submenu)::after {
   100% {
       opacity: 0
   }
+}
+
+/* Sobre */
+.pagina-sobre h1,
+.pagina-sobre h2 {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  color: #e72166;
+}
+.pagina-sobre h1 {
+  font-weight: 600;
+}
+.pagina-sobre h2 {
+  font-size: 20px;
+}
+.pagina-sobre p, .pagina-sobre li {
+  font-size: 14px;
+}
+.pagina-sobre p:last-child {
+  margin-bottom: 0;
+}
+.pagina-sobre hr.linha {
+  opacity: 1;
+  border-color: #950739;
+  width: 70px;
+  margin: 10px 0 20px;
+}
+
+.logo-sobre {
+  width: 100%;
+  max-width: 430px;
+  height: auto;
+}
+.logo-fiap-sobre {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
 }
