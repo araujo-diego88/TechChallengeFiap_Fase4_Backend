@@ -1,7 +1,7 @@
 <%- include config.ejs %>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
     <title><%= title %></title>
     <link rel="stylesheet" href="<%=Url%>css/bootstrap.min.css">
@@ -9,40 +9,6 @@
     <link rel='stylesheet' href='<%=Url%>css/fontawesome/css/all.min.css' />
     <link rel="shortcut icon" type="image/x-icon" href="<%= Favicon %>">
     <script src="<%=Url%>js/jquery.min.js"></script>
-
-    <script type='importmap'>
-      {
-        "imports": {
-          "@fullcalendar/core": "https://cdn.skypack.dev/@fullcalendar/core@6.1.11",
-          "@fullcalendar/daygrid": "https://cdn.skypack.dev/@fullcalendar/daygrid@6.1.11"
-        }
-      }
-    </script>
-    <script type='module'>
-      import { Calendar } from '@fullcalendar/core'
-      import dayGridPlugin from '@fullcalendar/daygrid'
-
-      document.addEventListener('DOMContentLoaded', function() {
-        const calendarEl = document.getElementById('calendar')
-        const calendar = new Calendar(calendarEl, {
-          plugins: [dayGridPlugin],
-          themeSystem: 'bootstrap5',
-          // allDay: false,
-          editable: true,
-          selectable: true,
-          unselectAuto: false,
-          displayEventTime: false,
-          // events: myEvents,
-          headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-          }
-        })
-        calendar.render()
-      })
-    </script>
-
   </head>
   <body class="<%= bodyClass %>" >
 
@@ -64,47 +30,39 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body">
-                <ul class="navbar-nav justify-content-lg-center align-items-lg-center flex-grow-1 pe-lg-3 gap-lg-2 w-100">
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>">Home</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>reservar">Nossos Espaços</a></li>
-                  <!-- <li class="nav-item"><a class="tm-redirecionamento nav-link" href="reservar">Nossos Espaços</a></li> -->
-                  
-                  <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="ambientes" role="button" data-bs-toggle="dropdown" aria-expanded="false">Ambientes</a>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="ambiente/banho/">Banho</a></li>
-                      <li><a class="dropdown-item" href="ambiente/cozinha/">Cozinha</a></li>
-                      <li><a class="dropdown-item" href="ambiente/infantil/">Infantil</a></li>
-                      <li><a class="dropdown-item" href="ambiente/living/">Living</a></li>
-                      <li><a class="dropdown-item" href="ambiente/office/">Office</a></li>
-                      <li><a class="dropdown-item" href="ambiente/quartos/">Quartos</a></li>
-                      <li><a class="dropdown-item" href="ambiente/outros/">Outros</a></li>
-                    </ul>
-                  </li> -->
-    
-                  <!-- <li class="nav-item"><a class="tm-redirecionamento nav-link" href="contato">Contato</a></li> -->
-    
-                  <!-- <li class="nav-item ms-lg-3 mt-lg-0 mt-4"><a class="btn-header btn-blue" href="orcamento">Solicitar Orçamento</a></li> -->
+                <div class="d-lg-none">
+                <ul class="navbar-nav navbar-account">
+                  <% if(sessao.loggedIn) { %>
+                    <li class="nav-item"><a class="nav-link " href="<%=Url%>minha-conta"><i class="fas fa-user me-2"></i>Minha conta</a> </li>
+                    <li class="nav-item"><a class="nav-link" href="<%=Url%>logout"><i class="fas fa-left-to-bracket me-2"></i>Sair da conta</a> </li>
+                    <% } else { %>
+                      <li class="nav-item"><a class="nav-link" href="<%=Url%>login"><i class="fas fa-right-to-bracket me-2"></i>Entrar</a>  </li>
+                      <li class="nav-item"><a class="nav-link" href="<%=Url%>cadastrar"><i class="far fa-square-plus me-2"></i>Cadastrar</a> </li>
+                  <% } %>
+                </ul>
+                <hr>
+                </div>
+
+                <ul class="navbar-nav justify-content-lg-center align-items-lg-center flex-grow-1 py-0 gap-lg-2 w-100">
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>">Início</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>/sobre">Sobre</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>/gerenciar-reservas">Minhas Reservas</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>/gerenciar-espacos">Meus Espaços</a></li>
                 </ul>
               </div>
             </div>
           </div>
     
-          <div class="d-flex col-lg-4 gap-3 justify-content-end align-itens-center">
-            <% if(sessao.loggedIn) { %>
-              <a class="nav-link  d-flex gap-2 align-itens-center" href="<%=Url%>minha-conta"><i class="fas fa-user me-2"></i>Minha conta</a> 
-              <span class="text-white">|</span>
-              <a class="nav-link d-flex gap-2 align-itens-center" href="<%=Url%>logout"><i class="fas fa-left-to-bracket me-2"></i>Sair da conta</a> 
-            <% } else { %>
-              <a class="nav-link d-flex gap-2 align-itens-center" href="<%=Url%>login"><i class="fas fa-right-to-bracket me-2"></i>Entrar</a> 
-              <span class="text-white">|</span>
-              <a class="nav-link d-flex gap-2 align-itens-center" href="<%=Url%>cadastrar"><i class="far fa-square-plus me-2"></i>Cadastrar</a> 
-            <% } %>
-            <!-- <ul class="m-0 list-unstyled list-sociais-header">
-              <li><a class="tm-facebook" href="<%= linkface %>" target="_blank" title="Facebook"><i class="fab fa-facebook-square"></i></a></li>
-              <li><a class="tm-instagram" href="<%= Instagram %>" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a></li>
-              <li><a class="tm-youtube" href="<%= youtube %>" target="_blank" title="Youtube"><i class="fab fa-youtube"></i></a></li>
-            </ul> -->
+          <div class="d-none d-lg-flex col-lg-4 gap-3 justify-content-end align-itens-center">
+            <ul class="navbar-nav navbar-account">
+              <% if(sessao.loggedIn) { %>
+                <li class="nav-item"><a class="nav-link" href="<%=Url%>minha-conta"><i class="fas fa-user me-2"></i>Minha conta</a> </li>
+                <li class="nav-item"><a class="nav-link" href="<%=Url%>logout"><i class="fas fa-left-to-bracket me-2"></i>Sair da conta</a> </li>
+                <% } else { %>
+                  <li class="nav-item"><a class="nav-link" href="<%=Url%>login"><i class="fas fa-right-to-bracket me-2"></i>Entrar</a>  </li>
+                  <li class="nav-item"><a class="nav-link" href="<%=Url%>cadastrar"><i class="far fa-square-plus me-2"></i>Cadastrar</a> </li>
+              <% } %>
+            </ul>
           </div>
     
         </div>

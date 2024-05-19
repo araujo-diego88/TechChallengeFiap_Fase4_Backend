@@ -192,18 +192,4 @@ routes.get('/sala/:id', async function(req, res) {
     res.render('sala', { title: 'Shared Spaces | ' + json.nome, bodyClass:"sala-page", lugares:json, sessao:sessao_feita });
 });
 
-
-
-routes.get('/reservar', async function(req, res) {
-    const response = await fetch('http://localhost:3333/places?status=true');
-    const json = await response.json();
-
-    if(req.session.loggedIn)
-        sessao_feita = req.session
-    else
-        sessao_feita = {conta: { username:"Nao logado" } }
-    
-    res.render('reservar', { title: 'Shared Spaces | Catalogo de reservas', bodyClass:"reservar-page", lugares:json, sessao:sessao_feita });
-});
-
 export default routes;
