@@ -1,6 +1,6 @@
 <%- include includes/header %>
-
-<div class="container d-flex align-itens-center justify-content-center mt-5">
+<main>
+<div class="container d-flex align-itens-center justify-content-center py-5">
     <div id="loginbox" class="main-form-login row g-3">
         <div class="text-center col-12 mb-2">
             <img class="img-logo-login" src="<%= Logotipo %>" width="200" height="90" alt="<%= NomeEmpresa %>">
@@ -16,17 +16,21 @@
             <div id="response_notification"><div id="login-msg" class="alert alert-primary"><i class="fa-solid fa-arrow-right-to-bracket"></i> Faça o Login para continuar.</div></div>
 
             <div class="col-12">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <label for="username" class="form-label">Nome do usuário:</label>
                 <input type="text" class="form-control" id="username" name="username" required placeholder="Informe seu Usuario">
             </div>
 
             <div class="col-12">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                <label for="password" class="form-label">Senha:</label>
                 <input type="password" class="form-control" id="password" name="password" required placeholder="Informe sua Senha">
             </div>
 
             <div class="col-12 text-center">
-                <button id="BTEnvia" type="submit" class="btn btn-primary" name="btn-login" id="btn-login">Entrar</button>
+                <button type="submit" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-right-to-bracket"></i>Entrar</button>
+            </div>
+
+            <div class="col-12 text-center text-login-form mt-4">
+                Não tem uma conta? <a href="<%=Url%>cadastrar">Clique Aqui</a> para criar uma.
             </div>
 
         </form>
@@ -34,6 +38,7 @@
     </div>
 
 </div>
+</main>
 
 <script>
 

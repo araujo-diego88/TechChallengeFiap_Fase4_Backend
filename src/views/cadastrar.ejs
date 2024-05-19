@@ -1,42 +1,48 @@
 <%- include includes/header %>
-<div class="main-formulario-seo">
-     <h2>Cadastro</h2>
-     <p>Prencha as informações abaixo</p>
-     <div class="container p-3" id="FormCadastro">
-         <div id="loader" class="text-center">
-             <div class="spinner-border" role="status">
-                 <span class="visually-hidden">Carregando...</span>
-             </div>
-         </div>
- 
-         <div id="response_notification"></div>
- 
-         <form id="formCad" class="row g-3 text-center justify-content-center" method="post" action="#FormCadastro">
-             <div class="col-12 col-md-4">
-                 <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" required  aria-required="true">
-             </div> 
-             <div class="col-12 col-md-4">
-                 <input name="data_nascimento" type="date" class="form-control" id="formDate" placeholder="Data Nascimento*" required  aria-required="true">
-             </div> 
-             <div class="col-12 col-md-4">
-                 <input name="email" type="email" class="form-control" id="formEmail" placeholder="E-mail*" required  aria-required="true">
-             </div> 
-             <div class="col-12 col-md-6">
-                 <input name="username" type="text" class="form-control" id="formUserName" placeholder="Nome de usuario*" required  aria-required="true">
-             </div> 
-             <div class="col-12 col-md-6">
-                 <input name="password" type="password" class="form-control" id="formPassword" placeholder="Senha*" required  aria-required="true">
-             </div> 
-             <!-- <div class="col-12">
-                <input class="form-control" type="file" id="formAvatar" name="avatar">
-              </div> -->
-             <div class="col-12">
-                 <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Enviar</button>
-             </div>
-         </form>
-     </div>
- </div>
+<main class="py-5 px-2">
+<div class="container px-3 px-md-5 py-4 bg-white rounded rounded-3 shadow" id="FormCadastro">
+        <h2>Cadastro</h2>
+        <p class="mb-5">Prencha as informações abaixo</p>
 
+        <div id="loader" class="text-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Carregando...</span>
+            </div>
+        </div>
+
+        <div id="response_notification"></div>
+
+        <form id="formCad" class="row g-3" method="post" action="#FormCadastro">
+            <div class="col-12 col-md-4">
+                <label for="formName" class="form-label">Nome*:</label>
+                <input name="nome" type="text" class="form-control" id="formName" placeholder="Nome*" required  aria-required="true">
+            </div> 
+            <div class="col-12 col-md-4">
+                <label for="formDate" class="form-label">Data Nascimento*:</label>
+                <input name="data_nascimento" type="date" class="form-control" id="formDate" placeholder="Data Nascimento*" required  aria-required="true">
+            </div> 
+            <div class="col-12 col-md-4">
+                <label for="formEmail" class="form-label">E-mail*:</label>
+                <input name="email" type="email" class="form-control" id="formEmail" placeholder="E-mail*" required  aria-required="true">
+            </div> 
+            <div class="col-12 col-md-6">
+                <label for="formUserName" class="form-label">Nome de usuario*:</label>
+                <input name="username" type="text" class="form-control" id="formUserName" placeholder="Nome de usuario*" required  aria-required="true">
+            </div> 
+            <div class="col-12 col-md-6">
+                <label for="formPassword" class="form-label">Senha*:</label>
+                <input name="password" type="password" class="form-control" id="formPassword" placeholder="Senha*" required  aria-required="true">
+            </div> 
+            <!-- <div class="col-12">
+            <input class="form-control" type="file" id="formAvatar" name="avatar">
+            </div> -->
+            <div class="col-12 mt-5 d-flex flex-wrap gap-2">
+                <button id="BTEnvia" type="submit" name="BTEnvia" class="btn_formulario d-inline-flex align-items-center gap-2"><i class="fas fa-paper-plane"></i>Finalizar cadastro</button>
+                <button type="reset" class="btn_formulario limpar d-inline-flex align-items-center gap-2"><i class="fa-solid fa-broom"></i>Limpar Formulario</button>
+            </div>
+        </form>
+    </div>
+</main>
 
 
 <script>
@@ -93,6 +99,7 @@
                     },
                     success: function(response) {
                          $('#response_notification').html('<div class="alert alert-success alerta-email" role="alert"><i class="fas fa-check-circle me-3"></i>Cadastro feito com sucesso</div>');
+                         window.location.href = "<%=Url%>login";
                     },
                     error: function(response) {
                          $('#response_notification').html('<div class="alert alert-danger" role="alert"><i class="fas fa-exclamation-circle me-3"></i>' + response.responseJSON.error + '</div>');
