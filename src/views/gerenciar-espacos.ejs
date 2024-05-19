@@ -1,22 +1,26 @@
 <%- include includes/header %>
 <main class="container py-5">
-    <div class="d-flex flex-wrap gap-4">
+  <div class="row g-4">
 
-        <% lugares.forEach(lugar => { %>
-            <div class="card card-home" style="width: 18rem;">
-                <img src="<%=lugar.thumbnail_url%>" class="card-img-top img-fluid" alt="..." style="width: 18rem; height:200px;object-fit: cover;object-position: center;">
-                <div class="card-body text-center">
-                    <h5 class="card-title"><%=lugar.nome%></h5>
-                    <p class="card-text"><%=lugar.description%></p>
-                    <p class="card-text"><%=lugar.price%></p>
+    <% if(lugares.length) { lugares.forEach(lugar => { %>
+          <div class="col-12 col-md-6 col-lg-4">
+              <div class="card card-home ">
+                  <img src="<%=lugar.thumbnail_url%>" class="card-img-top" alt="<%=lugar.nome%>" title="<%=lugar.nome%>">
+                  <div class="card-body text-center">
+                      <h5 class="card-title"><%=lugar.nome%></h5>
+                      <ul class="list-unstyled text-card">
+                          <li><b>Descrição:</b> <%=lugar.description%></li>
+                          <li><b>Preço:</b> R$ <%=lugar.price%>,00</li>
+                      </ul>
+                      <a href="<%=Url%>sala/<%=lugar.id%>" class="btn btn-sm btn-primary me-2"><i class="fas fa-eye me-2"></i>Visualizar</a>
+                      <a href="<%=Url%>gerenciar/<%=lugar.id%>" class="btn btn-sm btn-warning me-2"><i class="fa-solid fa-pen me-2"></i> Editar</a>
+                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete" data-idEsp="<%=lugar.id%>" data-NomeEspaco="<%=lugar.nome%>" title="Excluir"><i class="fa-solid fa-trash me-2"></i>Excluir</button>
+                  </div>
+              </div>
+          </div>
 
-                    <a href="<%=Url%>gerenciar/<%=lugar.id%>" class="btn btn-sm btn-warning me-2"><i class="fa-solid fa-pen"></i></a>
-                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete" data-idEsp="<%=lugar.id%>" data-NomeEspaco="<%=lugar.nome%>" title="Excluir"><i class="fa-solid fa-trash"></i></button>
-                </div>
-            </div>
-
-       <% }); %>
-    </div>
+    <% })} else { %><div class="col-12 h3">Não há espaços criados</div> <% } %>
+  </div>
 </main>
 
 <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalDeleteLabel" aria-hidden="true">

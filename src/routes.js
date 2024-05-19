@@ -169,7 +169,7 @@ routes.get('/gerenciar/:id', async function(req, res, next) {
             res.render('gerenciar', { title: 'Shared Spaces | Gerenciar '+ json.nome, bodyClass:"homepage", sessao:sessao_feita, lugar:json, id_lugar:req.params.id });
         }
         else {
-            res.render('403', { title: 'Shared Spaces | Acesso negado', bodyClass:"homepage", sessao:sessao_feita });
+            res.render('401', { title: 'Shared Spaces | Acesso negado', bodyClass:"homepage", sessao:sessao_feita });
         }
 
     }

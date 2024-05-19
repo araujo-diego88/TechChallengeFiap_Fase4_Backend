@@ -1,23 +1,31 @@
 <%- include includes/header %>
 <main class="container py-5">
-    <div class="d-flex flex-wrap gap-4">
+  <div class="row g-4">
 
-        <% reservas.forEach(reserva => { %>
-            <div class="card card-home" style="width: 18rem;">
-                <img src="<%=reserva.place.thumbnail_url%>" class="card-img-top img-fluid" alt="..." style="width: 18rem; height:200px;object-fit: cover;object-position: center;">
-                <div class="card-body text-center">
-                    <h5 class="card-title"><%=reserva.place.nome%></h5>
-                    <p class="card-text"><%=reserva.place.description%></p>
-                    <p class="card-text"><%=reserva.place.price%></p>
-                    <p class="card-text"><%=reserva.date%></p>
+    <% if(reservas.length) { reservas.forEach(reserva => { 
+      data = reserva.date.toISOString().replace(/T/, '-').replace(/\..+/, '').replace(':', '-').replace(':00', '')
+      data_info = data.split("-")
+      %>
+          <div class="col-12 col-md-6 col-lg-4">
+              <div class="card card-home ">
+                  <img src="<%=reserva.place.thumbnail_url%>" class="card-img-top" alt="<%=reserva.place.nome%>" title="<%=reserva.place.nome%>">
+                  <div class="card-body text-center">
+                      <h5 class="card-title"><%=reserva.place.nome%></h5>
+                      <ul class="list-unstyled text-card">
+                          <li><b>Descrição:</b> <%=reserva.place.description%></li>
+                          <li><b>Preço total:</b> R$ <%=(reserva.place.price * reserva.num_pessoas)%>,00</li>
+                          <li><b>Numero de pessoas:</b> <%=reserva.num_pessoas%></li>
+                          <li><b>Data:</b> <%=data_info[2]%>/<%=data_info[1]%>/<%=data_info[0]%> às <%=data_info[3]%>:<%=data_info[4]%></li>
+                      </ul>
+                      <a href="<%=Url%>sala/<%=reserva.place.id%>" class="btn btn-sm btn-primary me-2"><i class="fas fa-eye me-2"></i>Visualizar</a>
+                      <!-- <a href="<%=Url%>gerenciar/<%=reserva.place.id%>" class="btn btn-sm btn-warning me-2"><i class="fa-solid fa-pen me-2"></i> Editar</a> -->
+                      <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete" data-idRes="<%=reserva._id%>" data-NomeEspaco="<%=reserva.place.nome%>" title="Excluir"><i class="fa-solid fa-trash me-2"></i>Cancelar reserva</button>
+                  </div>
+              </div>
+          </div>
 
-                    <!-- <a href="<%=Url%>gerenciar/<%=reserva._id%>" class="btn btn-sm btn-warning me-2"><i class="fa-solid fa-pen"></i></a> -->
-                    <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#ModalDelete" data-idRes="<%=reserva._id%>" data-NomeEspaco="<%=reserva.place.nome%>" title="Excluir"><i class="fa-solid fa-trash me-2"></i>Cancelar reserva</button>
-                </div>
-            </div>
-
-       <% }); %>
-    </div>
+     <% })} else { %><div class="col-12 h3">Não há reservas feitas</div> <% } %>
+  </div>
 </main>
 
 <div class="modal fade" id="ModalDelete" tabindex="-1" aria-labelledby="ModalDeleteLabel" aria-hidden="true">
