@@ -21,7 +21,7 @@
       <nav class="navbar navbar-expand-lg navbar-main">
         <div class="container">
           <div class="col-6 col-lg-2">
-            <a class="navbar-brand" href="<%=Url%>"><img class="logo-header" width="180" height="50" src="<%= Logotipo_Header %>" alt="<%= NomeEmpresa %>"></a>
+            <a class="navbar-brand" href="<%=Url%>"><img class="logo-header" width="180" height="50" src="<%= Logotipo_Branco %>" alt="<%= NomeEmpresa %>"></a>
           </div>
           <div class="col-6 d-lg-none text-end">
             <button class="navbar-toggler" title="Expandir" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarMain" aria-controls="navbarMain">
@@ -49,10 +49,10 @@
                 </div>
 
                 <ul class="navbar-nav justify-content-lg-center align-items-lg-center flex-grow-1 gap-lg-2 w-100">
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>">Início</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>sobre">Sobre</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>gerenciar-reservas">Minhas Reservas</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>gerenciar-espacos">Meus Espaços</a></li>
+                  <li class="nav-item"><a class=" nav-link" href="<%=Url%>">Início</a></li>
+                  <li class="nav-item"><a class=" nav-link" href="<%=Url%>sobre">Sobre</a></li>
+                  <li class="nav-item"><a class=" nav-link" href="<%=Url%>gerenciar-reservas">Minhas Reservas</a></li>
+                  <li class="nav-item"><a class=" nav-link" href="<%=Url%>gerenciar-espacos">Meus Espaços</a></li>
                 </ul>
               </div>
             </div>
@@ -62,7 +62,7 @@
             <ul class="navbar-nav navbar-account">
               <% if(sessao.loggedIn) { %>
                 <li class="nav-item"><a class="nav-link" href="<%=Url%>minha-conta"><i class="fas fa-user me-2"></i>Minha conta</a> </li>
-                <li class="nav-item"><a class="nav-link" href="<%=Url%>logout"><i class="fas fa-left-to-bracket me-2"></i>Sair da conta</a> </li>
+                <li class="nav-item"><a class="nav-link" href="<%=Url%>logout"><i class="fas fa-right-to-bracket me-2"></i>Sair da conta</a> </li>
                 <% } else { %>
                   <li class="nav-item"><a class="nav-link" href="<%=Url%>login"><i class="fas fa-right-to-bracket me-2"></i>Entrar</a>  </li>
                   <li class="nav-item"><a class="nav-link" href="<%=Url%>cadastrar"><i class="far fa-square-plus me-2"></i>Cadastrar</a> </li>

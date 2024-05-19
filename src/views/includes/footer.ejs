@@ -1,13 +1,51 @@
-<div class="creditos">
+<footer>
+  <div class="main-footer">
+    <div class="container d-flex flex-wrap gap-4 gap-md-0">
+      <div class="col-12 col-md-4 pe-md-2 pe-lg-5">
+        <p><a href="<%=Url%>"><img class="logo-footer" width="180" height="50" src="<%= Logotipo_Branco %>" alt="<%= NomeEmpresa %>" loading="lazy"></a></p>
+        <p>Somos uma empresa que disponibiliza espaços compartilhados como salas de reunião, quadras esportivas e salões de festa para locação por seus membros, que podem reservar os espaços para realização de eventos pessoais e profissionais.</p>
+      </div>
+      <div class="col-12 col-md-4 pe-md-2">
+        <p class="h4">Menu</p>
+        <hr class="linha">
+        <ul class="list-unstyled list-footer d-flex flex-column gap-2">
+            <li><a href="<%Url%>">Início</a></li>
+            <li><a href="<%Url%>sobre">Sobre</a></li>
+            <li><a href="<%Url%>gerenciar-reservas">Minhas Reservas</a></li>
+            <li><a href="<%Url%>gerenciar-espacos">Meus Espaços</a></li>
+        </ul>
+      </div>
+      <div class="col-12 col-md-4 pe-md-2">
+        <p class="h4">Conta</p>
+        <hr class="linha">
+        <ul class="list-unstyled list-footer-account d-flex flex-column gap-2">
+          <% if(sessao.loggedIn) { %>
+            <li><a href="<%=Url%>minha-conta"><i class="fas fa-user me-2"></i>Minha conta</a> </li>
+            <li><a href="<%=Url%>logout"><i class="fas fa-right-to-bracket me-2"></i>Sair da conta</a> </li>
+          <% } else { %>
+            <li><a href="<%=Url%>login"><i class="fas fa-right-to-bracket me-2"></i>Entrar</a>  </li>
+            <li><a href="<%=Url%>cadastrar"><i class="far fa-square-plus me-2"></i>Cadastrar</a> </li>
+        <% } %>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="creditos">
     <div class="container d-flex flex-wrap align-items-center flex-column gap-3 flex-lg-row gap-lg-0 justify-content-center text-center text-lg-start">
       <div class="col-12 col-lg-6">
         <strong><%=NomeEmpresa%></strong>&nbsp;| Copyright © 2024&nbsp; Todos os direitos Reservados.
       </div>
-      <div class="col-12 col-lg-6 text-center text-lg-end">
-        <span class="me-2">Desenvolvido pelo <b>GRUPO D</b></span>
+      <div class="col-12 col-lg-6 d-flex justify-content-center justify-content-lg-end align-items-center">
+        <span class="me-2">Desenvolvido pelo <b>GRUPO D</b> da</span>
+        <a href="https://fiap.com.br/" target="_blank"><img src="<%=Url%>images/logo-fiap.svg" class="logo-fiap-footer" alt="FIAP" title="FIAP" width="50" height="20"></a>
       </div>
     </div>
   </div>
+
+</footer>
 
 <script src="<%=Url%>js/bootstrap.bundle.min.js"></script>
 </body>
