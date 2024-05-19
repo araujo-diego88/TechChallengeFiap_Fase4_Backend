@@ -40,6 +40,9 @@ a {
 a:hover {
   color: var(--links-color-hover);
 }
+textarea {
+  white-space: pre-wrap;
+}
 
 /* Login  */
 #login-alert, #login-success {
@@ -523,16 +526,22 @@ a:hover.dropdown-toggle:not(.submenu)::after {
 }
 
 /* Sobre */
-.pagina-sobre h1,
-.pagina-sobre h2 {
+h1,
+h2 {
   font-family: "Montserrat", sans-serif;
   text-transform: uppercase;
   color: #e72166;
 }
-.pagina-sobre h1 {
+h3 {
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  color: #950739;
+  font-size: 20px;
+}
+h1 {
   font-weight: 600;
 }
-.pagina-sobre h2 {
+h2 {
   font-size: 20px;
 }
 .pagina-sobre p, .pagina-sobre li {

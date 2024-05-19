@@ -8,6 +8,7 @@
             </div>
             <div class="col-12 col-md-6 d-flex flex-column justify-content-center mt-5 mt-md-0">
                 <h1>Minha conta:</h1>
+                <hr class="linha">
 
                 <p>Bem vindo <strong><%=sessao.conta.nome%></strong>, o que você deseja fazer</p>
                 <ul class="list-unstyled">
@@ -19,7 +20,8 @@
                 </ul>
 
                 <% if(sessao.conta.isAdmin) { %>
-                <h1>ADMIN:</h1>
+                <h1 class="mt-5">ADMIN:</h1>
+                <hr class="linha">
 
                 <p>Parabens parece que voce possui todos os privilégios</p>
                 <ul class="list-unstyled">

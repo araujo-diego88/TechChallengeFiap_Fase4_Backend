@@ -1,9 +1,10 @@
 <%- include includes/header %>
 <main class="container mt-5 pb-5 d-flex flex-wrap">
-  <div class="bg-white rounded rounded-3 shadow col-12 col-xl-8 order-2 order-lg-1 mt-5 mt-lg-0">
-    <h1 class="text-center pt-4">
-      <%=lugares.nome%>
-    </h1>
+  <div class="bg-white rounded rounded-3 shadow col-12 col-xl-8 order-2 order-lg-1 mt-5 mt-lg-0 py-5">
+    <div class="d-flex align-items-center flex-column mb-4">
+        <h1><%=lugares.nome%></h1>
+        <hr class="linha">
+    </div>
 
     <div class="col-12 px-3 px-lg-4 px-md-3 mb-md-5 pt-3">
       <div id="SliderEspaco" class="carousel slide mb-3" data-bs-ride="carousel">
@@ -28,7 +29,7 @@
     </div>
 
 
-    <div class="col-12 text-justify px-3 px-lg-4 px-md-3 my-4">
+    <div id="DescLonga" class="col-12 text-justify px-3 px-lg-4 px-md-3 my-4">
       <%=lugares.descricao_longa%>
     </div>
 
@@ -38,7 +39,7 @@
     <div class="caixa-lateral container bg-white rounded rounded-3 shadow p-4 col-12">
       <p class="h5 mb-4 text-center">Reservar: <%=lugares.nome%></p>
       <form class="row g-3 form-reservar" id="reservarEspaco" method="post">
-        <div class="col-12">
+        <div class="col-12 d-flex flex-column">
           <label class="form-label"><b>Data:</b> <span id="itemData">-</span></label>
           <label class="form-label"><b>Preço:</b> <span id="itemPreco">R$ <%=lugares.price%>,00</span></label>
           <label class="form-label"><b>Vagas Restantes:</b> <span id="itemVagas">-</span></label>
@@ -165,11 +166,18 @@
     if(NumeroTotal < 1) NumeroTotal = 1;
     itemPreco.innerHTML = "R$ " + Preco + ",00";
   }
+  function updateDesc(item) {
+    item.innerHTML = item.innerHTML.replaceAll("&lt;", "<").replaceAll("&gt;", ">");
+    // item.innerHTML = item.innerHTML;
+  }
   $(document).ready(function () {
     const inputState = document.getElementById("inputState");
     updateValues(inputState)
     const numPessoas = document.getElementById("numPessoas");
     updatePrices(numPessoas)
+    
+    const DescLonga = document.getElementById("DescLonga");
+    updateDesc(DescLonga)
 
     $('#inputState').change(function () {
       updateValues(this)
