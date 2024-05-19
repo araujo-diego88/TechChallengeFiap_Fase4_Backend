@@ -50,17 +50,20 @@
       </div>
       <div class="modal-body">
         <form class="row g-3" id="reservarEspaco" method="post">
-          <!-- <div class="col-12">
-            <label for="nomeCli" class="form-label">Nome Cliente</label>
-            <input type="text" class="form-control" name="nomeCli" id="nomeCli" placeholder="Nome do Cliente">
-          </div> -->
+          <div class="col-12">
+            <label for="numPessoas" class="form-label">Numero total de pessoas</label>
+            <input type="number" class="form-control" name="num_pessoas" id="numPessoas" placeholder="Numero total de pessoas*" required>
+          </div>
 
           <div class="col-12">
             <label for="inputState" class="form-label">Escolha a Data</label>
-            <select id="inputState" name="date" class="form-select">
-            <% lugares.datas_disponiveis.forEach(datas => { if(datas != null) { %>
-              <option value="<%=datas%>"><%=datas%></option>
-            <% }}); %>
+            <select id="inputState" name="reserva" class="form-select">
+            <% for(var i = 0; i < lugares.datas_disponiveis.length; i++) { 
+              datas = lugares.datas_disponiveis[i]
+
+              if(datas[0] != null && datas[3] > 0) { %>
+              <option value="<%=datas%>,<%=i%>">Dia: <%=datas[0]%> | Horario: <%=datas[1]%>:<%=(datas[2] < 10) ? "0" : "" %><%=datas[2]%> | Vagas <%=datas[3]%></option>
+            <% }}; %>
             </select>
           </div>
         </form>

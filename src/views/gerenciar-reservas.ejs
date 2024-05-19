@@ -62,7 +62,7 @@ $(document).ready(function() {
           console.log(response);
         },
         error: function(response) {
-          alert("Falha ao cancelar");
+          alert("Falha ao cancelar: " + response.responseJSON.error);
           console.log(response);
         }
       });
