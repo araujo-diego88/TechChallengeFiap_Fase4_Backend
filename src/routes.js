@@ -108,7 +108,7 @@ routes.get('/gerenciar-espacos', async function(req, res, next) {
     if(req.session.loggedIn) {
         sessao_feita = req.session
 
-        const json = json = await PlaceController.find_user_places(req, res)
+        const json = await PlaceController.find_user_places(req, res)
 
         res.render('gerenciar-espacos', { title: 'Shared Spaces | Gerenciar Espaço', bodyClass:"homepage", sessao:sessao_feita, lugares:json });
         // console.log(json);

@@ -32,6 +32,15 @@ a {
 body {
   overflow-x: hidden;
   font-family: var(--text-font-family);
+  background: linear-gradient(180deg,#f3f3f3a0 0%,#f3f3f3a0 100%),url(/images/fundo-paralax.png);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: contain;
+  
+}
+main {
+  min-height: 100vh;
 }
 
 body.login-page {
@@ -83,7 +92,7 @@ img .img-logo-login {
 .navbar-main .btn-close:focus, .navbar-main .btn-close:hover {
   outline: 0;
   box-shadow: 0 0 0;
-  background: #0b5351 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%233eb49a'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+  background: #e7216620 url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23e72166'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
   opacity: 1;
   background-size: 10px;
 }
@@ -91,6 +100,9 @@ img .img-logo-login {
 .navbar-main .navbar-toggler .navbar-toggler-icon {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23f2f5f7ed' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   background-size: auto;
+}
+.navbar-main .navbar-toggler .navbar-toggler-icon:hover {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23e72166' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2.5' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .navbar-main .navbar-toggler,
@@ -192,7 +204,7 @@ a:hover.dropdown-toggle:not(.submenu)::after {
 
 .dropdown-menu {
   padding: 5px 0 !important;
-  background-color: rgba(0, 0, 0, 0.8784313725) !important;
+  background-color: #000000e0 !important;
   border-radius: 3px !important;
   min-width: 240px;
 }
@@ -283,16 +295,119 @@ a:hover.dropdown-toggle:not(.submenu)::after {
   .nav-item.dropdown a.dropdown-item {
     font-size: 14px;
   }
-  .header-bottom .container h1 {
-    font-size: 6vw;
-  }
 }
-@media (max-width: 768px) {
-  .header-breadcumbs ul {
-    flex-direction: column;
-    row-gap: 10px;
-  }
+
+/* Fim header */
+
+/* Barra de creditos */
+.creditos {
+  width: 100%;
+  background-color: var(--creditos-bg-color);
+  padding: 8px 0;
+  border-top: 1px var(--creditos-border-top-color) solid;
+  color: var(--creditos-text-color)!important;
+  font-size: 13px!important
 }
+
+.creditos a {
+  color: var(--creditos-text-color)!important;
+  font-size: 13px!important
+}
+
+.creditos svg {
+  fill: var(--creditos-icon-color)!important;
+  max-height: 30px
+}
+
+
+.creditos a {
+  transition-property: all;
+  transition-duration: .3s
+}
+
+.creditos a:hover {
+  opacity: .5;
+  transition-property: all;
+  transition-duration: .3s
+}
+
+/* Fim creditos */
+
+/* Home */
+
+.card-home h5 {
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.card-home .text-card {
+  font-size: 16px;
+}
+.card-home .card-img-top {
+  width: 100%; 
+  height:200px;
+  object-fit: cover;
+  object-position: center;
+}
+.btn-card {
+  background-color: #e72166;
+  border: 1px #e72166 solid;
+  color: #FFF !important;
+  border-radius: 8px;
+  padding: 8px 30px;
+  text-transform: uppercase;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 500;
+  text-decoration: none !important;
+  transition: all 0.3s;
+  display: block;
+  width: max-content;
+}
+
+.btn-card:focus,
+.btn-card:hover {
+  background-color: #950739;
+  border: 1px #950739 solid;
+  color: #FFF !important;
+  text-decoration: none !important;
+  transform: scale(0.9);
+}
+
+/* Pagina da Sala/Espaco */
+.caixa-lateral {
+  height:max-content
+}
+.form-reservar .form-select, .form-reservar .form-control {
+  font-size: 13px;
+}
+.form-reservar .form-label {
+  font-size: 15px;
+}
+.modal-lightbox .btn-close {
+  color: #f00;
+  background: transparent url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23f00'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e") center/1em auto no-repeat;
+  opacity: 1;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem
+}
+.modal-title {
+  font-family: "Montserrat", sans-serif;
+}
+.modal-reservar-info {
+  font-size:18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+
+
+
+
 .reservar-local {
   background: #f1f1f1;
   padding: 25px 20px;
@@ -397,9 +512,6 @@ a:hover.dropdown-toggle:not(.submenu)::after {
   transform: scale(0.9);
 }
 
-.btn_formulario:focus {
-  transform: scale(0.92);
-}
 
 .main-formulario-seo h2 {
   color: var(--form-title-color);

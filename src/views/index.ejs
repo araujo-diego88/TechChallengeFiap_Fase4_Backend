@@ -1,14 +1,19 @@
 <%- include includes/header %>
 <main class="container py-5">
-    <div class="d-flex flex-wrap gap-4">
+    <div class="row g-4">
 
         <% lugares.forEach(lugar => { %>
-            <div class="card card-home" style="width: 18rem;">
-                <img src="<%=lugar.thumbnail_url%>" class="card-img-top img-fluid" alt="..." style="width: 18rem; height:200px;object-fit: cover;object-position: center;">
-                <div class="card-body text-center">
-                    <h5 class="card-title"><%=lugar.nome%></h5>
-                    <p class="card-text"><%=lugar.description%></p>
-                    <a href="<%=Url%>sala/<%=lugar.id%>" class="btn btn-primary">Saiba mais</a>
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card card-home ">
+                    <img src="<%=lugar.thumbnail_url%>" class="card-img-top" alt="<%=lugar.nome%>" title="<%=lugar.nome%>">
+                    <div class="card-body text-center">
+                        <h5 class="card-title"><%=lugar.nome%></h5>
+                        <ul class="list-unstyled text-card">
+                            <li><b>Descrição:</b> <%=lugar.description%></li>
+                            <li><b>Preço:</b> R$ <%=lugar.price%>,00</li>
+                        </ul>
+                        <div class="mt-4 d-flex justify-content-center"><a href="<%=Url%>sala/<%=lugar.id%>" class="btn-card"><i class="fas fa-angles-right me-2"></i>Saiba mais</a></div>
+                    </div>
                 </div>
             </div>
 

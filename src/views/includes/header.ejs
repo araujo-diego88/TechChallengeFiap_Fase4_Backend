@@ -3,14 +3,19 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title><%= title %></title>
     <link rel="stylesheet" href="<%=Url%>css/bootstrap.min.css">
     <link rel='stylesheet' href='<%=Url%>css/style.css' />
     <link rel='stylesheet' href='<%=Url%>css/fontawesome/css/all.min.css' />
     <link rel="shortcut icon" type="image/x-icon" href="<%= Favicon %>">
     <script src="<%=Url%>js/jquery.min.js"></script>
+
   </head>
-  <body class="<%= bodyClass %>" >
+  <body>
 
     <header id="Header">
       <nav class="navbar navbar-expand-lg navbar-main">
@@ -43,11 +48,11 @@
                 <hr>
                 </div>
 
-                <ul class="navbar-nav justify-content-lg-center align-items-lg-center flex-grow-1 py-0 gap-lg-2 w-100">
+                <ul class="navbar-nav justify-content-lg-center align-items-lg-center flex-grow-1 gap-lg-2 w-100">
                   <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>">Início</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>/sobre">Sobre</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>/gerenciar-reservas">Minhas Reservas</a></li>
-                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>/gerenciar-espacos">Meus Espaços</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>sobre">Sobre</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>gerenciar-reservas">Minhas Reservas</a></li>
+                  <li class="nav-item"><a class="tm-redirecionamento nav-link" href="<%=Url%>gerenciar-espacos">Meus Espaços</a></li>
                 </ul>
               </div>
             </div>

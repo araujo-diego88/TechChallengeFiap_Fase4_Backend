@@ -1,74 +1,96 @@
 <%- include includes/header %>
-<main class="container py-5">
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <!-- <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
-        </div>
-        <div class="carousel-inner">
+<main class="container mt-5 pb-5 d-flex flex-wrap">
+  <div class="bg-white rounded rounded-3 shadow col-12 col-xl-8 order-2 order-lg-1 mt-5 mt-lg-0">
+    <h1 class="text-center pt-4">
+      <%=lugares.nome%>
+    </h1>
+
+    <div class="col-12 px-3 px-lg-4 px-md-3 mb-md-5 pt-3">
+      <div id="SliderEspaco" class="carousel slide mb-3" data-bs-ride="carousel">
+        <div class="carousel-inner rounded rounded-3 shadow">
           <div class="carousel-item active">
-            <img src="<%=lugares.thumbnail_url%>" class="d-block w-100 object-fit-cover" style="height: 600px;" alt="...">
+            <a href="#" title="<%=lugares.nome%>" data-bs-toggle="modal"
+              data-bs-target="#ModalImagens" ping="<%=lugares.thumbnail_url%>">
+              <img width="1000" height="600" loading="lazy" class="d-block img-fluid"
+                src="<%=lugares.thumbnail_url%>" alt="<%=lugares.nome%>" title="<%=lugares.nome%>">
+            </a>
           </div>
-          <!-- <div class="carousel-item">
-            <img src="<%=Url%>files/escritoriio-1714518879441.jpg" class="d-block w-100 object-fit-cover" style="height: 600px;" alt="...">
-          </div> -->
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+        <!-- <button class="carousel-control-prev" type="button" data-bs-target="#SliderEspaco" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
+          <span class="visually-hidden">Anterior</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#SliderEspaco" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+          <span class="visually-hidden">Proximo</span>
+        </button> -->
       </div>
+    </div>
 
-      <div class="row py-5">
-        <div class="col-12 col-md-8">
-            <h1><%=lugares.nome%></h1>
-            <p>
-              <%=lugares.descricao_longa%>
-            </p>
 
+    <div class="col-12 text-justify px-3 px-lg-4 px-md-3 my-4">
+      <%=lugares.descricao_longa%>
+    </div>
+
+  </div>
+  <div class="col-12 col-xl-4 ps-xl-5 d-flex flex-wrap order-1 order-lg-2">
+
+    <div class="caixa-lateral container bg-white rounded rounded-3 shadow p-4 col-12">
+      <p class="h5 mb-4 text-center">Reservar: <%=lugares.nome%></p>
+      <form class="row g-3 form-reservar" id="reservarEspaco" method="post">
+        <div class="col-12">
+          <label class="form-label"><b>Preço:</b> R$ <%=lugares.price%>,00</label>
         </div>
 
-        <div class="col-12 col-md-4 text-end">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#ReservarEspModal">Reservar Espaço</button>
+        <div class="col-12">
+          <label for="numPessoas" class="form-label">Número total de pessoas:</label>
+          <input type="number" min="1" value="1" class="form-control" name="num_pessoas" id="numPessoas" placeholder="Numero total de pessoas*" required>
         </div>
 
-      </div>
+        <div class="col-12">
+          <label for="inputState" class="form-label">Escolha a data e hora:</label>
+          <select id="inputState" name="reserva" class="form-select">
+            <% for(var i=0; i < lugares.datas_disponiveis.length; i++) { 
+              datas=lugares.datas_disponiveis[i]
+              separa_data = datas[0].split('-')
+
+              if(datas[0] !=null && datas[3]> 0) { %>
+              <option value="<%=datas%>,<%=i%>">Dia: <%=separa_data[2]%>/<%=separa_data[1]%>/<%=separa_data[0]%> às <%=datas[1]%>:<%=(datas[2] < 10) ? "0" : "" %><%=datas[2]%> | Vagas Restantes: <%=datas[3]%></option>
+            <% }}; %>
+          </select>
+        </div>
+        <div class="col-12 mt-4">
+          <button type="button" class="btn btn-primary" id="reservarButton" data-NomeEspaco="<%=lugares.nome%>"  data-bs-toggle="modal" data-bs-target="#ModalConfirm" >Efetuar reserva</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </main>
 
 
+	<!--[END CONTEINER]  -->
 
-<div class="modal fade" id="ReservarEspModal" tabindex="-1" aria-labelledby="ReservarEspModalLabel" aria-hidden="true">
+<div class="modal fade modal-lightbox" id="ModalImagens" tabindex="-1" aria-labelledby="ModalImagens" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-transparent border-0">
+      <div class="modal-body text-end">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <img width="1000" height="600" loading="lazy" class="img-fluid rounded rounded-2" src="<%=lugares.thumbnail_url%>" title="<%=lugares.nome%>" alt="<%=lugares.nome%>">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="ModalConfirm" tabindex="-1" aria-labelledby="ModalConfirmLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="ReservarEspModalLabel">Reservar espaço</h1>
+        <h1 class="modal-title fs-5" id="ModalConfirmLabel">Confimrar</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="row g-3" id="reservarEspaco" method="post">
-          <div class="col-12">
-            <label for="numPessoas" class="form-label">Numero total de pessoas</label>
-            <input type="number" class="form-control" name="num_pessoas" id="numPessoas" placeholder="Numero total de pessoas*" required>
-          </div>
-
-          <div class="col-12">
-            <label for="inputState" class="form-label">Escolha a Data</label>
-            <select id="inputState" name="reserva" class="form-select">
-            <% for(var i = 0; i < lugares.datas_disponiveis.length; i++) { 
-              datas = lugares.datas_disponiveis[i]
-
-              if(datas[0] != null && datas[3] > 0) { %>
-              <option value="<%=datas%>,<%=i%>">Dia: <%=datas[0]%> | Horario: <%=datas[1]%>:<%=(datas[2] < 10) ? "0" : "" %><%=datas[2]%> | Vagas <%=datas[3]%></option>
-            <% }}; %>
-            </select>
-          </div>
-        </form>
+        
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary" id="reservarSubmit">Reservar</button>
       </div>
@@ -76,61 +98,127 @@
   </div>
 </div>
 
+	
 
-<script>
+	<!-- <div class="botoes-contato-desktop d-flex">
+		<div class="contato-collapse collapse rounded-pill" id="botoescontato">
+			<a title="Localização" href="https://maps.app.goo.gl/LQkYLXr8MpVDpRys8" id="btn-fl-localizacao"
+				class="icon_localizacao tm-localizacao" target="_blank">
+				<i class="fas fa-location-dot"></i>
+			</a>
+			<a title="Telefone" href="tel:+5511944413156" class="icon_phone tm-phone" target="_blank">
+				<svg aria-hidden="true" class="ico_d " width="39" height="39" viewBox="0 0 39 39" fill="none"
+					xmlns="http://www.w3.org/2000/svg" style="transform: rotate(0deg);">
+					<path
+						d="M19.3929 14.9176C17.752 14.7684 16.2602 14.3209 14.7684 13.7242C14.0226 13.4259 13.1275 13.7242 12.8292 14.4701L11.7849 16.2602C8.65222 14.6193 6.11623 11.9341 4.47529 8.95057L6.41458 7.90634C7.16046 7.60799 7.45881 6.71293 7.16046 5.96705C6.56375 4.47529 6.11623 2.83435 5.96705 1.34259C5.96705 0.596704 5.22117 0 4.47529 0H0.745882C0.298353 0 5.69062e-07 0.298352 5.69062e-07 0.745881C5.69062e-07 3.72941 0.596704 6.71293 1.93929 9.3981C3.87858 13.575 7.30964 16.8569 11.3374 18.7962C14.0226 20.1388 17.0061 20.7355 19.9896 20.7355C20.4371 20.7355 20.7355 20.4371 20.7355 19.9896V16.4094C20.7355 15.5143 20.1388 14.9176 19.3929 14.9176Z"
+						transform="translate(9.07179 9.07178)" fill="white"></path>
+				</svg>
+			</a>
+			<a title="Whatsapp" href="https://api.whatsapp.com/send?phone=5511944413156" class="icon_whats tm-whats"
+				target="_blank">
+				<i class="fab fa-whatsapp"></i>
+			</a>
+			<a title="Email" href="mailto:contato@maxrank.com.br" class="icon_mail tm-mail" target="_blank">
+				<i class="fa-regular fa-envelope"></i>
+			</a>
+		</div>
+		<a class="collapsed icon_contato d-none d-lg-flex" title="Entrar em Contato" data-bs-toggle="collapse"
+			href="#botoescontato" role="button" aria-expanded="false" aria-controls="botoescontato"><i
+				class="far fa-contato"></i></a>
+		<a title="Voltar ao Topo" href="#" class="icon_topo" id="back-to-top" style="display: flex;"><i
+				class="fas fa-angles-up"></i></a>
+	</div> -->
 
-function convertFormToJSON(form) {
-    const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
-    const json = {};
-    $.each(array, function () {
-        json[this.name] = this.value || "";
-    });
-    return json;
-}
-$(document).ready(function() {
-  var request;
-  $('#reservarSubmit').click(function() {
-    $('#reservarEspaco').submit(); 
-  });
+  <!-- Lightbox -->
+	<script>
+		const ModalImagens = document.getElementById('ModalImagens')
+		ModalImagens.addEventListener('show.bs.modal', event => {
+			const button = event.relatedTarget
+			const recipient = button.getAttribute('ping')
+			const modalBodyImg = ModalImagens.querySelector('.modal-body img')
 
-  $('#reservarEspaco').submit(function(event) {
-      // console.log(idUsu);
-      // var dados = $('#reservarEspaco').serialize();
-      // console.log(dados);
-      // var form = document.getElementById("reservarEspaco");
+			modalBodyImg.src = recipient
+		})
 
-      event.preventDefault();
+    const ModalConfirm = document.getElementById('ModalConfirm')
+    ModalConfirm.addEventListener('show.bs.modal', event => {
+      const button = event.relatedTarget
+      const NomeEspaco = button.getAttribute('data-NomeEspaco')
+      var SelectValue = document.getElementById("inputState").value
+      var informacoes = SelectValue.split(',')
+      var data = informacoes[0].split('-');
+      var data_completa = data[2] + "/" + data[1] + "/" + data[0];
 
-      // Abort any pending request
-      if (request) {
-          request.abort();
-      }
 
-      var $form = $(this);
-      const form_data = convertFormToJSON($form);
-      console.log(form_data);
-      console.log(JSON.stringify(form_data));
+      var NumeroTotal = document.getElementById("numPessoas").value
+      if(NumeroTotal < 1) NumeroTotal = 1;
 
-      $.ajax({
-        type: 'POST',
-        url: '<%=Url%>places/<%=lugares.id%>/reserve',
-        contentType: 'application/json',
-        data: JSON.stringify(form_data),
-        await: true,
-        dataType: 'json',
-        success: function(response) {
-          alert("Reserva feita com sucesso");
-          window.location.reload(true);
-          console.log(response);
-        },
-        error: function(response) {
-          alert("Falha ao fazer a reserva: " + response.responseJSON.error);
-          console.log(response);
-        }
-      });
-      return false;
-    });
-});
-</script>
+      const modalTitle = ModalConfirm.querySelector('.modal-title')
+      const modalBody = ModalConfirm.querySelector('.modal-body')
 
+      modalBody.innerHTML = '<ul class="list-unstyled modal-reservar-info">\
+        <li><b>Nome:</b> ' + NomeEspaco + '</li> \
+        <li><b>Número total de Pessoas:</b> ' + NumeroTotal + '</li> \
+        <li><b>Data:</b> ' + data_completa + ' às ' + informacoes[1] + ':' + ((informacoes[2] < 10) ? ("0"+informacoes[2]):informacoes[2]) +' </li> \
+        <li><b>Preço:</b> R$ <%=lugares.price%>,00</li> \
+        <li><b>Vagas restantes:</b> ' + informacoes[3] + '</li></ul>';
+
+
+      modalTitle.textContent = `Confimar reserva do espaço: ${NomeEspaco}?`
+    })
+
+		function convertFormToJSON(form) {
+			const array = $(form).serializeArray(); // Encodes the set of form elements as an array of names and values.
+			const json = {};
+			$.each(array, function () {
+				json[this.name] = this.value || "";
+			});
+			return json;
+		}
+		$(document).ready(function () {
+			var request;
+			$('#reservarSubmit').click(function () {
+				$('#reservarEspaco').submit();
+			});
+
+			$('#reservarEspaco').submit(function (event) {
+				// console.log(idUsu);
+				// var dados = $('#reservarEspaco').serialize();
+				// console.log(dados);
+				// var form = document.getElementById("reservarEspaco");
+
+				event.preventDefault();
+
+				// Abort any pending request
+				if (request) {
+					request.abort();
+				}
+
+				var $form = $(this);
+				const form_data = convertFormToJSON($form);
+				console.log(form_data);
+				console.log(JSON.stringify(form_data));
+
+				$.ajax({
+					type: 'POST',
+					url: '<%=Url%>places/<%=lugares.id%>/reserve',
+					contentType: 'application/json',
+					data: JSON.stringify(form_data),
+					await: true,
+					dataType: 'json',
+					success: function (response) {
+						alert("Reserva feita com sucesso");
+						window.location.reload(true);
+						console.log(response);
+					},
+					error: function (response) {
+						alert("Falha ao fazer a reserva: " + response.responseJSON.error);
+						console.log(response);
+					}
+				});
+				return false;
+			});
+		});
+	</script>
+</main>
 <%- include includes/footer %>
